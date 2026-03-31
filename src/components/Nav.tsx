@@ -4,7 +4,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from "@/assets/logo.svg";
 
-const navLinks: { label: string; href: string }[] = [];
+const navLinks: { label: string; href: string }[] = [
+  { label: "Features", href: "/#features" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
 
 const Nav = () => {
  const [scrolled, setScrolled] = useState(false);
@@ -53,13 +58,13 @@ const Nav = () => {
 
  <div className="hidden md:flex items-center gap-3">
  <a
- href="#"
+ href="https://app.bizzybee.co.uk"
  className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
  >
  Log in
  </a>
  <a
- href="#pricing"
+ href="/pricing"
  className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
  style={{ background: "var(--accent-primary)", color: "white", borderRadius: "var(--radius-pill)", boxShadow: "var(--shadow-card)" }}
  >
@@ -95,7 +100,7 @@ const Nav = () => {
  </Link>
  ))}
  <a
- href="#pricing"
+ href="/pricing"
  className="inline-flex items-center justify-center px-5 py-3 text-sm font-medium mt-2" style={{ background: "var(--accent-primary)", color: "white", borderRadius: "var(--radius-pill)", boxShadow: "var(--shadow-card)" }}
  >
  Start Free Trial

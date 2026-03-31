@@ -34,8 +34,8 @@ const Footer = () => (
           <div>
             <h4 className="font-mono-label mb-4" style={{ color: "hsla(40, 20%, 92%, 0.35)" }}>Legal</h4>
             <ul className="space-y-3">
-              <li className="text-sm" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>Privacy Policy</li>
-              <li className="text-sm" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>Terms of Service</li>
+              <li><Link to="/privacy" className="text-sm transition-colors hover:text-primary-light" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>Privacy Policy</Link></li>
+              <li><Link to="/terms" className="text-sm transition-colors hover:text-primary-light" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>Terms of Service</Link></li>
             </ul>
           </div>
         </div>

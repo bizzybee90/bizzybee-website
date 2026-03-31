@@ -1,0 +1,22 @@
+import { createClient } from '@supabase/supabase-js';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  console.warn(
+    'Missing Supabase env vars (VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY). Auth and billing features will not work.'
+  );
+}
+
+export const supabase = createClient(
+  SUPABASE_URL || '',
+  SUPABASE_ANON_KEY || '',
+  {
+    auth: {
+      autoRefreshToken: true,
+      persistSession: true,
+      storage: typeof window !== 'undefined' ? window.localStorage : undefined,
+    },
+  }
+);
