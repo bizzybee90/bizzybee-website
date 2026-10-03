@@ -1,4 +1,5 @@
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
+import PendingMarker, { LegalDraftBanner } from "@/components/PendingMarker";
 
 const Terms = () => (
   <main>
@@ -11,34 +12,37 @@ const Terms = () => (
           >
             Terms of Service
           </h1>
-          <p className="text-sm mb-8" style={{ color: "hsl(220, 9%, 50%)" }}>
-            Last updated: March 2026
+          <p className="text-sm mb-4" style={{ color: "hsl(220, 9%, 50%)" }}>
+            Last updated: <PendingMarker>Draft, 3 October 2026</PendingMarker>
           </p>
+          <LegalDraftBanner />
 
           <div className="space-y-8" style={{ color: "hsl(220, 9%, 30%)", fontSize: 15, lineHeight: 1.8 }}>
             <section>
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>1. Agreement</h2>
               <p>
                 By accessing or using BizzyBee, you agree to be bound by these Terms of Service.
-                BizzyBee is operated by BizzyBee Ltd, registered in England &amp; Wales.
+                BizzyBee is operated by{" "}
+                <PendingMarker>Legal entity to be confirmed: name and address</PendingMarker>.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>2. Service description</h2>
               <p>
-                BizzyBee provides AI-powered customer service automation tools including email
-                management, WhatsApp messaging, voice handling and customer communication
-                for UK service businesses.
+                BizzyBee provides a shared business inbox for email (BizzyBee Inbox) and, on the
+                AI Assistant plan, AI sorting and draft replies, for UK service businesses.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>3. Subscriptions and billing</h2>
               <p>
-                BizzyBee operates on a monthly subscription basis. Payments are processed securely
-                via Stripe. You may cancel your subscription at any time — no contracts, no penalties.
-                Refunds are handled on a case-by-case basis.
+                BizzyBee operates on a monthly subscription basis, paid in advance before you connect
+                a mailbox. Prices are shown excluding VAT, which is added at checkout. Payments are
+                processed securely via Stripe. You may cancel your subscription at any time, with no
+                contracts and no penalties. If you ask within 30 days of your first payment, we will
+                refund that payment in full.
               </p>
             </section>
 
@@ -67,6 +71,11 @@ const Terms = () => (
                 Your use of BizzyBee is also governed by our{" "}
                 <a href="/privacy" style={{ color: "hsl(35, 55%, 55%)" }}>Privacy Policy</a>.
                 We take data protection seriously and comply with UK GDPR.
+              </p>
+              <p className="mt-3">
+                For the emails of your customers that pass through BizzyBee, your business is the controller and
+                BizzyBee processes them on your behalf.{" "}
+                <PendingMarker>Data processing terms (UK GDPR Article 28) to be added after legal review</PendingMarker>
               </p>
             </section>
 

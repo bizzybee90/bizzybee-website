@@ -44,7 +44,7 @@ const Contact = () => {
                 Talk to us
               </h1>
               <p style={{ color: "hsl(220, 9%, 50%)", maxWidth: 420, margin: "0 auto" }}>
-                Got questions? We'd love to hear from you. Drop us a message and we'll get back to you within 24 hours.
+                Got questions? We'd love to hear from you. Drop us a message and we'll get back to you within 1 working day.
               </p>
             </div>
 
@@ -55,7 +55,7 @@ const Contact = () => {
                   Message sent!
                 </h2>
                 <p style={{ color: "hsl(220, 9%, 50%)" }}>
-                  We'll be in touch shortly. Usually within a few hours.
+                  We'll get back to you within 1 working day.
                 </p>
               </div>
             ) : (

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight } from "lucide-react";
+import { MONEY_BACK_DAYS } from "@/lib/offer";
 
 const ExitIntent = () => {
   const [show, setShow] = useState(false);
@@ -43,17 +44,18 @@ const ExitIntent = () => {
             </button>
             <span className="text-4xl mb-4 block">🐝</span>
             <h3 className="text-2xl font-bold text-foreground mb-2" style={{ letterSpacing: "-0.015em" }}>
-              Wait — don't leave without your free trial
+              Not sure yet? Test it on your real customers.
             </h3>
             <p className="text-muted-foreground mb-6 text-sm leading-relaxed">
-              Join hundreds of UK service businesses already saving 20+ hours a week with BizzyBee's AI customer service hub.
+              Use BizzyBee for {MONEY_BACK_DAYS} days. If it doesn't earn its place, email us and we'll refund your first payment in full.
             </p>
             <Link
               to="/pricing"
-              className="inline-flex items-center gap-2  px-6 py-3 rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-all"
+              style={{ background: "hsl(35, 55%, 55%)", color: "white" }}
               onClick={() => setShow(false)}
             >
-              Start Free Trial <ArrowRight size={16} />
+              See the two plans <ArrowRight size={16} />
             </Link>
           </motion.div>
         </motion.div>

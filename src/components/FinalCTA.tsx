@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
 import { ArrowRight } from "lucide-react";
+import { MONEY_BACK_DAYS } from "@/lib/offer";
 
 const FinalCTA = () => {
   const [clicked, setClicked] = useState(false);
@@ -78,7 +79,7 @@ const FinalCTA = () => {
               onMouseLeave={() => setHovered(false)}
               onClick={() => setClicked(true)}
             >
-              Start Your Free Trial <ArrowRight size={16} />
+              Choose your plan <ArrowRight size={16} />
             </Link>
             <Link
               to="/contact"
@@ -96,7 +97,7 @@ const FinalCTA = () => {
           </div>
 
           <p className="mt-6" style={{ fontSize: 12, color: "hsl(220, 9%, 55%)" }}>
-            No contracts. No catch. Cancel any time.
+            {MONEY_BACK_DAYS}-day money-back promise. No contracts. Cancel any time.
           </p>
         </AnimatedElement>
       </div>

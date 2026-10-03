@@ -3,6 +3,9 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── Message cards (the raw inbox) ───
+// These show the owner's life *before* BizzyBee, across every channel they
+// juggle today. They are the problem, not a list of what BizzyBee handles.
+// before-story:start
 const MESSAGE_CARDS = [
   { id: 1, type: "email", from: "Sarah Mitchell", subject: "Quote for 3-bed clean?", preview: "Hi, wondering if you could give me a quote for a 3-bed semi in Luton...", time: "10:32 AM", channel: "Email", urgent: false, unread: true },
   { id: 2, type: "whatsapp", from: "Jim Henderson", subject: "Emergency leak", preview: "Got a leak under the kitchen sink, any chance you can come today?", time: "11:15 AM", channel: "WhatsApp", urgent: true, unread: true },
@@ -16,29 +19,28 @@ const MESSAGE_CARDS = [
   { id: 9, type: "whatsapp", from: "Lisa Chen", subject: "Photo attached", preview: "Here's the photo of the tap I mentioned — can you fix this type?", time: "Monday", channel: "WhatsApp", urgent: false, unread: true },
   { id: 10, type: "email", from: "NO REPLY", subject: "Special offer!!!", preview: "UNBEATABLE DEALS ON PLUMBING SUPPLIES — CLICK NOW", time: "Today", channel: "Spam", urgent: false, unread: false },
 ];
+// before-story:end
 
 // ─── BizzyBee organised inbox ───
 const ORGANISED_CARDS = [
-  { id: 1, label: "Hot Lead", summary: "Sarah wants a quote for a 3-bed in Luton. Asked twice — seems frustrated.", status: "Draft reply ready", color: "#FF3B30" },
-  { id: 2, label: "Emergency", summary: "Jim has a kitchen leak. Needs same-day visit.", status: "Draft reply ready", color: "#FF9500" },
-  { id: 5, label: "Complaint", summary: "Karen's been waiting 3 days. Needs immediate attention.", status: "Apology drafted", color: "#FF3B30" },
-  { id: 3, label: "Booking", summary: "Thursday → Friday reschedule request.", status: "Auto-handled ✓", color: "#eab308" },
-  { id: 9, label: "Enquiry", summary: "Lisa sent a photo of a tap for assessment.", status: "Draft reply ready", color: "#eab308" },
-  { id: 6, label: "Voicemail", summary: "New enquiry from Google — MK area, wants a quote.", status: "Draft reply ready", color: "#6b7280" },
-  { id: 7, label: "Social", summary: "Facebook enquiry — MK area coverage question.", status: "Auto-handled ✓", color: "#6b7280" },
-  { id: 10, label: "Cleared", summary: "Spam email auto-filtered.", status: "Auto-cleared", color: "#d1d5db" },
+  { id: 1, label: "Quote", summary: "Sarah wants a quote for a 3-bed in Luton. Asked twice, seems frustrated.", status: "Draft reply ready", color: "#FF3B30" },
+  { id: 4, label: "Follow-up", summary: "Tom is chasing his quote for the third time.", status: "Draft reply ready", color: "#FF9500" },
+  { id: 12, label: "Complaint", summary: "Customer unhappy with a missed visit. Needs you today.", status: "Apology drafted", color: "#FF3B30" },
+  { id: 13, label: "Booking", summary: "Asks to move Thursday's visit to Friday.", status: "Draft reply ready", color: "#eab308" },
+  { id: 14, label: "Enquiry", summary: "Do you cover the MK area?", status: "Draft reply ready", color: "#6b7280" },
+  { id: 10, label: "Junk", summary: "Supplier spam moved out of the way.", status: "Filed as junk", color: "#d1d5db" },
 ];
 
 // ─── Exact approved copy ───
 const STAGES = [
   {
     label: "The Beginning",
-    description: "You started this business and it was your baby. Just you, doing great work. You picked up the phone every time. You replied to every email that evening. You gave quotes the same day. Customers chose you because the last company they called never got back to them — but you did. You were the one with the great reviews. The one people recommended.",
+    description: "You started this business and it was your baby. Just you, doing great work. You picked up the phone every time. You replied to every email that evening. You gave quotes the same day. Customers chose you because the last company they called never got back to them — but you did. You were the one with the great reviews. The one people recommended.", // before-story
     closingLine: "",
   },
   {
     label: "The Growth",
-    description: "Word spread. More customers came. More calls, more emails, more WhatsApps. You got busier and busier. That was the dream, right?",
+    description: "Word spread. More customers came. More calls, more emails, more WhatsApps. You got busier and busier. That was the dream, right?", // before-story
     closingLine: "",
   },
   {
@@ -53,14 +55,16 @@ const STAGES = [
   },
   {
     label: "The Way Out",
-    description: "BizzyBee exists because this story shouldn't have to end that way. It gives you back the thing you lost when you got busy: time. Not by doing the work for you — by handling everything around it. The emails, the texts, the missed calls, the follow-ups. It's like hiring a full office team for less than the cost of one.",
-    closingLine: "You keep doing the work you love. BizzyBee makes sure no customer ever feels ignored again.",
+    description: "BizzyBee exists because this story shouldn't have to end that way. It gives you back the thing you lost when you got busy: time. Not by doing the work for you, but by handling everything around it: the emails, the quotes, the follow-ups. Every customer in one inbox, every reply drafted in your voice, ready for you to send.",
+    closingLine: "You keep doing the work you love. BizzyBee keeps your customer emails from getting buried.",
   },
 ];
 
+// before-story:start
 const CHANNEL_ICONS: Record<string, string> = {
   email: "✉️", whatsapp: "💬", sms: "📱", call: "📞", facebook: "👤",
 };
+// before-story:end
 
 // ─── Card chaos positions per visual stage ───
 const getCardTransform = (visualStage: number, i: number) => {
@@ -96,6 +100,7 @@ const LABEL_COLORS: Record<number, string> = {
   [-1]: "#9E7A3C", 0: "#9E7A3C", 1: "#9E7A3C", 2: "#BE9650", 3: "#BE9650", 4: "#9E7A3C",
 };
 
+// before-story:start
 const NOTIF_ITEMS = [
   { icon: "📧", text: "3 unread", x: 2, y: 6 },
   { icon: "📞", text: "Missed call", x: 76, y: 3 },
@@ -106,7 +111,8 @@ const EXTRA_NOTIFS = [
   { icon: "📱", text: "Facebook (4)", x: 78, y: 45 },
   { icon: "🔔", text: "Reminder", x: 4, y: 50 },
 ];
-const FEATURE_CHIPS = ["Multi-channel", "AI Drafts", "Voice Learning", "Business Brain", "Smart Sort"];
+// before-story:end
+const FEATURE_CHIPS = ["One inbox", "AI Drafts", "Voice Learning", "Your Prices", "Smart Sort"];
 
 // ─── Sub-components ───
 interface CardTransform { x: number; y: number; rotate: number; scale: number; opacity: number; }
@@ -115,7 +121,7 @@ const ChaosCard = ({ card, transform, isDark, stage }: { card: (typeof MESSAGE_C
   const showBadge = stage >= 2 && card.urgent;
   const showDot = stage >= 1 && card.unread && !showBadge;
   return (
-    <div className="absolute top-0 left-0 w-full" style={{
+    <div data-before-story="" className="absolute top-0 left-0 w-full" style={{
       transform: `translate(${transform.x}px, ${transform.y}px) rotate(${transform.rotate}deg) scale(${transform.scale})`,
       opacity: transform.opacity,
       zIndex: 10 - MESSAGE_CARDS.indexOf(card) + (card.urgent && stage >= 2 ? 5 : 0),
@@ -144,8 +150,8 @@ const ChaosCard = ({ card, transform, isDark, stage }: { card: (typeof MESSAGE_C
 };
 
 const OrganisedCard = ({ card, index }: { card: (typeof ORGANISED_CARDS)[0]; index: number }) => (
-  <motion.div className="absolute top-0 left-0 w-full" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }} style={{ transform: `translateY(${index * 56}px)` }}>
+  <motion.div className="absolute left-0 w-full" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }} style={{ top: index * 56 }}>
     <div className="flex items-center gap-2" style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: 10, padding: "8px 12px", boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
       <div className="shrink-0 rounded" style={{ width: 4, height: 28, background: card.color }} />
       <div className="flex-1 min-w-0">
@@ -156,8 +162,8 @@ const OrganisedCard = ({ card, index }: { card: (typeof ORGANISED_CARDS)[0]; ind
       </div>
       <div className="shrink-0 whitespace-nowrap" style={{
         fontSize: 9, fontWeight: 600,
-        color: card.status.includes("✓") || card.status.includes("cleared") ? "#4a7c59" : "#d59543",
-        background: card.status.includes("✓") || card.status.includes("cleared") ? "rgba(74,124,89,0.06)" : "rgba(213,149,67,0.06)",
+        color: card.status.includes("✓") || card.status.includes("junk") ? "#4a7c59" : "#d59543",
+        background: card.status.includes("✓") || card.status.includes("junk") ? "rgba(74,124,89,0.06)" : "rgba(213,149,67,0.06)",
         padding: "2px 7px", borderRadius: 5,
       }}>{card.status}</div>
     </div>
@@ -378,7 +384,7 @@ const DesktopGrowthTrap = () => {
   const cardStage = isIntro ? -1 : visualStage;
 
   return (
-    <div ref={sectionRef} style={{ height: "100vh", position: "relative" }}>
+    <div ref={sectionRef} data-growth-trap-story="" style={{ height: "100vh", position: "relative" }}>
       <div className="flex overflow-hidden" style={{
         height: "100vh",
         background: bgColor,
@@ -399,7 +405,7 @@ const DesktopGrowthTrap = () => {
                 </div>
               </motion.div>
             ) : (
-              <motion.div key={visualStage} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+              <motion.div key={visualStage} data-before-story={isWayout ? undefined : ""} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], exit: { duration: 0.12 } }} className="max-w-[460px]">
                 <div className="uppercase" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.2em", color: labelColor, marginBottom: 16 }}>
                   {stageData!.label}
@@ -453,7 +459,7 @@ const DesktopGrowthTrap = () => {
                 <span style={{ fontSize: 16 }}>🐝</span>
                 <span style={{ fontSize: 13, fontWeight: 700, color: "#1a1a1a" }}>BizzyBee Inbox</span>
               </div>
-              <div className="rounded-md" style={{ fontSize: 10, fontWeight: 600, color: "#4a7c59", background: "rgba(74,124,89,0.07)", padding: "3px 8px" }}>All handled ✓</div>
+              <div className="rounded-md" style={{ fontSize: 10, fontWeight: 600, color: "#4a7c59", background: "rgba(74,124,89,0.07)", padding: "3px 8px" }}>Sorted, drafts ready ✓</div>
             </motion.div>
 
             {/* Feature chips */}
@@ -485,7 +491,7 @@ const DesktopGrowthTrap = () => {
           {showNotifs && (
             <>
               {[...NOTIF_ITEMS, ...(visualStage === 3 ? EXTRA_NOTIFS : [])].map((n, i) => (
-                <div key={`notif-${i}`} className="absolute pointer-events-none z-[5]" style={{
+                <div key={`notif-${i}`} data-before-story="" className="absolute pointer-events-none z-[5]" style={{
                   left: `${n.x}%`, top: `${n.y}%`,
                   opacity: visualStage === 3 ? 0.9 : 0.55,
                   transform: `scale(${visualStage === 3 ? 1 : 0.85})`,
@@ -520,7 +526,7 @@ const DesktopGrowthTrap = () => {
 
 // ─── MOBILE: Stacked cards, no scroll hijack ───
 const MobileGrowthTrap = () => (
-  <div className="py-16 px-5">
+  <div className="py-16 px-5" data-growth-trap-story="">
     <h2 className="text-2xl font-bold text-center mb-12 max-w-sm mx-auto" style={{ color: "#1a1a1a", letterSpacing: "-0.015em" }}>
       You didn't start a business to answer emails at 10pm.
     </h2>
@@ -529,7 +535,7 @@ const MobileGrowthTrap = () => (
       const isWayout = i === 4;
       const typo = TYPO_STYLES[i];
       return (
-        <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+        <motion.div key={i} data-before-story={isWayout ? undefined : ""} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} viewport={{ once: true, margin: "-60px" }}
           className="max-w-md mx-auto mb-12 rounded-2xl p-6"
           style={{ backgroundColor: isDark ? "hsl(20, 44%, 12%)" : isWayout ? "hsl(44, 70%, 96%)" : "hsl(40, 20%, 98%)" }}>

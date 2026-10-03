@@ -44,7 +44,7 @@ const Testimonials = () => (
             </div>
             <div className="text-left">
               <span className="block text-sm font-semibold" style={{ color: "hsl(220, 9%, 20%)" }}>
-                Michael Cooper
+                Michael Carbon
               </span>
               <span
                 className="block uppercase"
@@ -68,7 +68,7 @@ const Testimonials = () => (
               <span style={{ color: "hsl(35, 55%, 55%)" }}>✦</span> Built for real trades businesses
             </span>
             <span className="flex items-center gap-1.5">
-              <span style={{ color: "hsl(35, 55%, 55%)" }}>✦</span> UK-based & GDPR compliant
+              <span style={{ color: "hsl(35, 55%, 55%)" }}>✦</span> For UK service businesses
             </span>
           </div>
         </AnimatedElement>

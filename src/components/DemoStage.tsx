@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
 import {
   Hexagon, Mic, GraduationCap, Layers, Brain, RotateCcw,
-  Mail, MessageSquare, Phone, Star, Clock, Tag, User, Sparkles,
+  Mail, Star, Clock, Tag, User, Sparkles,
 } from "lucide-react";
 
 const ease = [0.16, 1, 0.3, 1] as const;
@@ -21,60 +21,58 @@ const scenes: DemoScene[] = [
   {
     id: "sort",
     icon: <Hexagon className="w-4 h-4" />,
-    label: "Smart Inbox Sort",
-    title: "Smart inbox that prioritises itself",
-    description: "AI-powered triage sorts every message by urgency, intent, and value. Hot leads float to the top. Spam disappears.",
+    label: "Sorted for you",
+    title: "The urgent ones come first",
+    description: "AI Assistant sorts every email by what it needs: urgent, quote, booking, or just for info. Junk gets out of your way.",
   },
   {
     id: "draft",
     icon: <Mic className="w-4 h-4" />,
-    label: "AI Draft Replies",
+    label: "Drafts in your voice",
     title: "Replies that sound like you",
-    description: "BizzyBee learns your tone from past messages. Toggle between a generic reply and your AI-matched voice.",
+    description: "AI Assistant learns your tone from emails you've already sent. Compare a generic reply with one written your way.",
   },
   {
     id: "training",
     icon: <GraduationCap className="w-4 h-4" />,
-    label: "Training Hive",
-    title: "Teach your AI in plain English",
-    description: "No prompts. No code. Just tell BizzyBee your services, prices, and rules — it learns instantly.",
+    label: "Your business details",
+    title: "Tell it the basics, in plain English",
+    description: "Your services, area and prices. No prompts, no code. AI Assistant uses them when it drafts quote and booking replies.",
   },
   {
-    id: "omnichannel",
+    id: "history",
     icon: <Layers className="w-4 h-4" />,
-    label: "Omnichannel Flow",
-    title: "Every channel, one inbox",
-    description: "WhatsApp, Facebook Messenger, email, website chat, and SMS — all flowing into a single, beautiful inbox.",
+    label: "Customer history",
+    title: "Every customer's story in one place",
+    description: "On both plans, you can bring in past emails when you connect, so you can see what a customer has said before you reply. No AI needed.",
   },
   {
     id: "brain",
     icon: <Brain className="w-4 h-4" />,
-    label: "Business Brain",
-    title: "AI that truly knows your business",
-    description: "BizzyBee slides your prices, availability, and service area into replies automatically.",
+    label: "Quotes",
+    title: "Quote replies that use your prices",
+    description: "When someone asks for a price, the draft uses the prices you've given it. You check the figure before anything is sent.",
   },
   {
     id: "feedback",
     icon: <RotateCcw className="w-4 h-4" />,
-    label: "Feedback Loop",
-    title: "Every correction makes it smarter",
-    description: "Approve, edit, or reject drafts. BizzyBee learns from every interaction to improve over time.",
+    label: "You're in charge",
+    title: "Nothing goes out without your OK",
+    description: "Every draft waits for you. Send it, change it, or bin it and write your own.",
   },
 ];
 
 /* ─── Inbox message list data ─── */
 const inboxMessages = [
   { id: 1, from: "Sarah M.", subject: "Re: Tap still dripping", channel: "email" as const, time: "2m", badge: "🔥 Urgent", badgeStyle: { background: "rgba(255, 59, 48, 0.08)", color: "#FF3B30", border: "1px solid rgba(255, 59, 48, 0.12)" }, unread: true },
-  { id: 2, from: "James K.", subject: "Quote for bathroom refit", channel: "whatsapp" as const, time: "8m", badge: "💰 Quote", badgeStyle: { background: "rgba(52, 199, 89, 0.08)", color: "#34C759", border: "1px solid rgba(52, 199, 89, 0.12)" }, unread: true },
-  { id: 3, from: "+44 7911…", subject: "Emergency — tomorrow AM?", channel: "whatsapp" as const, time: "15m", badge: "📅 Booking", badgeStyle: { background: "rgba(175, 82, 222, 0.08)", color: "#AF52DE", border: "1px solid rgba(175, 82, 222, 0.12)" }, unread: true },
+  { id: 2, from: "James K.", subject: "Quote for bathroom refit", channel: "email" as const, time: "8m", badge: "💰 Quote", badgeStyle: { background: "rgba(52, 199, 89, 0.08)", color: "#34C759", border: "1px solid rgba(52, 199, 89, 0.12)" }, unread: true },
+  { id: 3, from: "Priya S.", subject: "Emergency — tomorrow AM?", channel: "email" as const, time: "15m", badge: "📅 Booking", badgeStyle: { background: "rgba(175, 82, 222, 0.08)", color: "#AF52DE", border: "1px solid rgba(175, 82, 222, 0.12)" }, unread: true },
   { id: 4, from: "Checkatrade", subject: "New lead in your area", channel: "email" as const, time: "1h", badge: "💰 Quote", badgeStyle: { background: "rgba(52, 199, 89, 0.08)", color: "#34C759", border: "1px solid rgba(52, 199, 89, 0.12)" }, unread: false },
-  { id: 5, from: "David T.", subject: "Thanks for last week", channel: "sms" as const, time: "2h", badge: "ℹ️ Info", badgeStyle: { background: "rgba(0, 0, 0, 0.03)", color: "var(--text-secondary)", border: "1px solid rgba(0, 0, 0, 0.06)" }, unread: false },
+  { id: 5, from: "David T.", subject: "Thanks for last week", channel: "email" as const, time: "2h", badge: "ℹ️ Info", badgeStyle: { background: "rgba(0, 0, 0, 0.03)", color: "var(--text-secondary)", border: "1px solid rgba(0, 0, 0, 0.06)" }, unread: false },
 ];
 
 const channelIcon = {
   email: <Mail className="w-3.5 h-3.5" />,
-  whatsapp: <MessageSquare className="w-3.5 h-3.5" />,
-  sms: <Phone className="w-3.5 h-3.5" />,
 };
 
 /* ─── Reading pane content per scene ─── */
@@ -93,9 +91,9 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
           <div className="mt-4 p-3 rounded-xl bg-primary-glow/30 border border-primary/10">
             <div className="flex items-center gap-1.5 mb-1">
               <Sparkles className="w-3 h-3 text-primary" />
-              <span className="uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(35, 55%, 55%)" }}>AI briefing</span>
+              <span className="uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(35, 55%, 55%)" }}>Summary</span>
             </div>
-            <p className="text-xs text-foreground/70">Repeat follow-up — customer waiting 2 days for a leaking tap fix. Suggest priority slot tomorrow.</p>
+            <p className="text-xs text-foreground/70">Repeat follow-up. Customer has waited 2 days for the leaking tap. Needs a reply today.</p>
           </div>
         </div>
       );
@@ -110,11 +108,11 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
             <motion.div key={voiceMode} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3, ease }}>
               {voiceMode === "generic" ? (
                 <div className="p-4 rounded-xl border border-border bg-background-alt">
-                  <p className="text-sm text-foreground/70 leading-relaxed">"Dear Customer, Thank you for your enquiry. We will respond within 24–48 business hours. Kind regards, [Business Name]."</p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">"Dear Customer, Thank you for your enquiry. We will get back to you as soon as possible. Kind regards, [Business Name]."</p>
                 </div>
               ) : (
                 <div className="p-4 rounded-xl border border-primary/20 bg-primary-glow/10">
-                  <p className="text-sm text-foreground leading-relaxed">"Hiya! A leaky tap is usually a quick fix — most of the time it's just a washer. I charge £65 for the first hour including callout. I've got a slot Thursday morning or Friday afternoon. Which works best? 👍"</p>
+                  <p className="text-sm text-foreground leading-relaxed">"Hiya! A leaky tap is usually a quick fix — most of the time it's just a washer. I charge £65 for the first hour including callout. When suits you this week? Cheers, Dave"</p>
                 </div>
               )}
             </motion.div>
@@ -128,7 +126,7 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
             { label: "Services", value: "Plumbing, Heating, Bathroom Fitting", done: true },
             { label: "Service area", value: "SW London, Surrey, within 15 miles", done: true },
             { label: "Pricing", value: "£65/hr first hour, £45/hr after", done: true },
-            { label: "Booking rules", value: "Mon–Fri 8am–6pm, emergencies 24/7", done: false },
+            { label: "Working hours", value: "Mon–Fri 8am–6pm", done: true },
           ].map((item, i) => (
             <div key={i} className="flex items-center justify-between p-3 rounded-xl border border-border bg-background">
               <div>
@@ -136,26 +134,28 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
                 <span className="text-sm text-foreground">{item.value}</span>
               </div>
               <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${item.done ? "bg-emerald-50 text-emerald-600" : "bg-primary-glow text-primary"}`}>
-                {item.done ? "Trained" : "Learning…"}
+                {item.done ? "Saved" : "To add"}
               </span>
             </div>
           ))}
         </div>
       );
-    case "omnichannel":
+    case "history":
       return (
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="space-y-2.5">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-sm font-semibold text-foreground">Sarah M.</span>
+            <span className="text-[10px] text-muted-foreground">Customer since November 2025</span>
+          </div>
           {[
-            { ch: "WhatsApp", count: 12, colour: "bg-emerald-500" },
-            { ch: "Facebook", count: 8, colour: "bg-blue-500" },
-            { ch: "Email", count: 23, colour: "bg-red-400" },
-            { ch: "Web Chat", count: 5, colour: "bg-primary" },
-          ].map((c, i) => (
-            <motion.div key={i} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: i * 0.06, ease }} className="p-4 rounded-xl border border-border bg-background text-center">
-              <div className={`w-2.5 h-2.5 rounded-full ${c.colour} mx-auto mb-2`} />
-              <span className="text-xs font-medium text-foreground block">{c.ch}</span>
-              <span className="text-xl font-bold text-foreground">{c.count}</span>
-              <span className="uppercase block" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>messages</span>
+            { date: "Today", text: "Re: Tap still dripping" },
+            { date: "12 Aug", text: "Thanks for sorting the boiler so quickly" },
+            { date: "3 Aug", text: "Boiler service booking" },
+            { date: "Nov 2025", text: "Quote for new radiator" },
+          ].map((m, i) => (
+            <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, ease }} className="flex items-center justify-between p-3 rounded-xl border border-border bg-background">
+              <span className="text-sm text-foreground truncate">{m.text}</span>
+              <span className="uppercase shrink-0 ml-3" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>{m.date}</span>
             </motion.div>
           ))}
         </div>
@@ -172,11 +172,7 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
               <motion.span initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4, type: "spring", stiffness: 120, damping: 16 }} className="inline-flex items-center gap-1 bg-primary/10 text-primary font-semibold px-2 py-0.5 rounded-lg text-xs border border-primary/20">
                 <Tag className="w-3 h-3" /> £3,500
               </motion.span>
-              {" "}for a standard size. I'd love to pop over for a free quote — I've got availability{" "}
-              <motion.span initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.7, type: "spring", stiffness: 120, damping: 16 }} className="inline-flex items-center gap-1 bg-emerald-50 text-emerald-600 font-semibold px-2 py-0.5 rounded-lg text-xs border border-emerald-100">
-                <Clock className="w-3 h-3" /> Thursday AM
-              </motion.span>
-              ."
+              {" "}for a standard size. I'd love to pop over and give you an exact quote. When would suit you?"
             </p>
           </div>
         </div>
@@ -184,23 +180,14 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
     case "feedback":
       return (
         <div className="space-y-3">
-          <div className="p-3 rounded-xl border border-border bg-background">
-            <div className="flex items-center justify-between mb-2">
-              <span className="uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>This week's learning</span>
-              <span className="text-[10px] text-emerald-600 font-medium">↑ 4.2% accuracy</span>
-            </div>
-            <div className="w-full bg-muted/10 rounded-full h-1.5">
-              <div className="bg-emerald-500 rounded-full h-1.5" style={{ width: "89%" }} />
-            </div>
-            <div className="flex justify-between mt-1.5">
-              <span className="uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>89% approved</span>
-              <span className="uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>11% corrected</span>
-            </div>
+          <div className="p-4 rounded-xl border border-primary/20 bg-primary-glow/10">
+            <span className="uppercase block mb-1" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>Draft · waiting for you</span>
+            <p className="text-sm text-foreground leading-relaxed">"Hi Sarah, sorry the tap's still going. I can come round this week to sort it. When suits you? Cheers, Dave"</p>
           </div>
           <div className="flex gap-2">
-            <button className="flex-1 py-2 rounded-xl border border-emerald-200 text-emerald-600 text-xs font-medium bg-emerald-50/50 hover:bg-emerald-50 transition-colors">✓ Approve</button>
+            <button className="flex-1 py-2 rounded-xl border border-emerald-200 text-emerald-600 text-xs font-medium bg-emerald-50/50 hover:bg-emerald-50 transition-colors">✓ Send</button>
             <button className="flex-1 py-2 rounded-xl border border-border text-foreground text-xs font-medium hover:bg-background-alt transition-colors">✏️ Edit</button>
-            <button className="flex-1 py-2 rounded-xl border border-destructive/20 text-destructive text-xs font-medium hover:bg-red-50/50 transition-colors">✗ Reject</button>
+            <button className="flex-1 py-2 rounded-xl border border-destructive/20 text-destructive text-xs font-medium hover:bg-red-50/50 transition-colors">✗ Bin it</button>
           </div>
         </div>
       );
@@ -215,43 +202,42 @@ const InsightsPane = ({ sceneId }: { sceneId: string }) => {
     sort: {
       items: [
         { icon: <Star className="w-3 h-3 text-primary" />, label: "Priority", value: "Urgent" },
-        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Wait time", value: "2 days" },
+        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Waiting", value: "2 days" },
         { icon: <User className="w-3 h-3 text-primary" />, label: "Customer", value: "Repeat" },
       ],
     },
     draft: {
       items: [
-        { icon: <Mic className="w-3 h-3 text-primary" />, label: "Voice match", value: "96%" },
-        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Draft time", value: "1.2s" },
-        { icon: <Star className="w-3 h-3 text-primary" />, label: "Tone", value: "Friendly" },
+        { icon: <Mic className="w-3 h-3 text-primary" />, label: "Tone", value: "Friendly" },
+        { icon: <User className="w-3 h-3 text-primary" />, label: "Sign-off", value: "Cheers, Dave" },
+        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Status", value: "Waiting for you" },
       ],
     },
     training: {
       items: [
-        { icon: <Brain className="w-3 h-3 text-primary" />, label: "Knowledge", value: "247 items" },
-        { icon: <Star className="w-3 h-3 text-primary" />, label: "Accuracy", value: "96.4%" },
-        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Last trained", value: "2h ago" },
+        { icon: <Brain className="w-3 h-3 text-primary" />, label: "Services", value: "3" },
+        { icon: <Tag className="w-3 h-3 text-primary" />, label: "Prices", value: "Saved" },
+        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Hours", value: "Saved" },
       ],
     },
-    omnichannel: {
+    history: {
       items: [
-        { icon: <Layers className="w-3 h-3 text-primary" />, label: "Channels", value: "4 active" },
-        { icon: <Mail className="w-3 h-3 text-primary" />, label: "Today", value: "48 msgs" },
-        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Avg reply", value: "< 8s" },
+        { icon: <Mail className="w-3 h-3 text-primary" />, label: "Emails", value: "14" },
+        { icon: <User className="w-3 h-3 text-primary" />, label: "Customer since", value: "Nov 2025" },
+        { icon: <Star className="w-3 h-3 text-primary" />, label: "Last job", value: "Boiler service" },
       ],
     },
     brain: {
       items: [
-        { icon: <Brain className="w-3 h-3 text-primary" />, label: "Confidence", value: "High" },
-        { icon: <Tag className="w-3 h-3 text-primary" />, label: "Price pulled", value: "£3,500" },
-        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Slot pulled", value: "Thu AM" },
+        { icon: <Tag className="w-3 h-3 text-primary" />, label: "Price used", value: "£3,500" },
+        { icon: <Brain className="w-3 h-3 text-primary" />, label: "From", value: "Your price list" },
+        { icon: <Clock className="w-3 h-3 text-primary" />, label: "Status", value: "Waiting for you" },
       ],
     },
     feedback: {
       items: [
-        { icon: <RotateCcw className="w-3 h-3 text-primary" />, label: "Corrections", value: "11%" },
-        { icon: <Star className="w-3 h-3 text-primary" />, label: "Accuracy", value: "89%" },
-        { icon: <Brain className="w-3 h-3 text-primary" />, label: "Model ver.", value: "v3.2" },
+        { icon: <RotateCcw className="w-3 h-3 text-primary" />, label: "Sent without you", value: "Never" },
+        { icon: <Star className="w-3 h-3 text-primary" />, label: "Edit first", value: "Always possible" },
       ],
     },
   };
@@ -283,12 +269,12 @@ const DemoStage = () => {
     <AnimatedSection className="py-24 md:py-32" style={{ background: "hsl(40, 30%, 99%)" }}>
       <div className="container mx-auto px-6">
         <AnimatedElement className="text-center mb-16">
-          <span className="inline-block mb-4 uppercase" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.2em", color: "hsl(35, 50%, 45%)" }}>Interactive demos</span>
+          <span className="inline-block mb-4 uppercase" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.2em", color: "hsl(35, 50%, 45%)" }}>See it work</span>
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: "hsl(220, 9%, 15%)", letterSpacing: "-0.02em" }}>
             Your words. Your tone. Your prices. Just… faster.
           </h2>
           <p style={{ color: "hsl(220, 9%, 50%)", maxWidth: 480 }} className="mx-auto">
-            Six features that transform how UK service businesses handle customer communications.
+            Click through a normal morning in BizzyBee. Example data only.
           </p>
         </AnimatedElement>
 
@@ -335,12 +321,12 @@ const DemoStage = () => {
                   <div className="w-2.5 h-2.5 rounded-full bg-primary/40" />
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/40" />
                 </div>
-                <span className="ml-2 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>BizzyBee Dashboard</span>
+                <span className="ml-2 uppercase" style={{ fontSize: 10, fontWeight: 600, letterSpacing: "0.1em", color: "hsl(220, 9%, 55%)" }}>Example · BizzyBee AI Assistant</span>
 
                 {/* AI briefing strip */}
                 <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-lg" style={{ background: "rgba(213,149,67,0.08)", border: "1px solid rgba(213,149,67,0.12)" }}>
                   <Sparkles className="w-3 h-3 text-primary" />
-                  <span className="text-[10px] font-medium text-primary">AI Active · 3 drafts ready</span>
+                  <span className="text-[10px] font-medium text-primary">3 drafts waiting for you</span>
                 </div>
               </div>
 

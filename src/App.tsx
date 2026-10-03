@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import StickyCTA from "@/components/StickyCTA";
-import WhatsAppWidget from "@/components/WhatsAppWidget";
 import ExitIntent from "@/components/ExitIntent";
 import HoneyJarProgress from "@/components/HoneyJarProgress";
 import CursorTrail from "@/components/CursorTrail";
@@ -43,7 +42,6 @@ const App = () => (
         </Routes>
         <Footer />
         <StickyCTA />
-        <WhatsAppWidget />
         <ExitIntent />
         <HoneyJarProgress />
         </ErrorBoundary>

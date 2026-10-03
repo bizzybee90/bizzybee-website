@@ -27,7 +27,7 @@ const StickyCTA = () => {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium shadow-lg animate-pulse-glow"
             style={{ background: "hsl(35, 55%, 55%)", color: "white" }}
           >
-            Start Free Trial <ArrowRight size={16} />
+            See plans <ArrowRight size={16} />
           </Link>
         </motion.div>
       )}

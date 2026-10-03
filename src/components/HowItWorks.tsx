@@ -1,22 +1,21 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
-import { Upload, Cpu, Rocket } from "lucide-react";
+import { CreditCard, Cpu, Rocket } from "lucide-react";
+import { MONEY_BACK_DAYS } from "@/lib/offer";
 import { motion, AnimatePresence } from "framer-motion";
 
 const steps = [
   {
-    icon: <Upload className="w-5 h-5" />,
+    icon: <CreditCard className="w-5 h-5" />,
     step: "01",
-    title: "Connect your email",
+    title: "Pay and connect",
     description: (
       <>
-        Link your Gmail or Outlook in one click.
+        Choose your plan and pay securely through Stripe.
         <br /><br />
-        BizzyBee reads your sent emails to learn how you write — your tone, your phrasing, your sign-off.
+        Then connect your Gmail or Outlook mailbox in a few clicks, and choose how much past email to bring in, or start fresh. You can use your inbox while it comes in.
         <br /><br />
-        <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>It doesn't guess your voice.</span>
-        <br />
-        <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>It learns it.</span>
+        <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>Not for you? Ask within {MONEY_BACK_DAYS} days for a full refund of your first payment.</span>
       </>
     ),
   },
@@ -26,13 +25,11 @@ const steps = [
     title: "Learn your business",
     description: (
       <>
-        BizzyBee reads your website.
+        On the AI Assistant plan, BizzyBee reads the sent emails you bring in to learn how you write: your tone, your phrasing, your sign-off.
         <br /><br />
-        It analyses your services, pricing, service areas, and booking process — turning your site into a structured knowledge base.
+        You tell it your services, prices and the areas you cover, in plain English, and change them whenever you like.
         <br /><br />
-        It also studies your industry to understand common questions and standard answers.
-        <br /><br />
-        <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>Within minutes, it knows what you offer — and how to talk about it.</span>
+        <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>It doesn't guess your voice. It learns it.</span>
       </>
     ),
   },
@@ -44,15 +41,13 @@ const steps = [
       <>
         Now BizzyBee knows:
         <br />
-        <span className="inline-block mt-1 ml-1">• How you write</span>
-        <br />
-        <span className="inline-block ml-1">• What you charge</span>
+        <span className="inline-block mt-1 ml-1">• What you charge</span>
         <br />
         <span className="inline-block ml-1">• Where you work</span>
         <br />
-        <span className="inline-block ml-1">• How your industry responds</span>
+        <span className="inline-block ml-1">• How you write (still learning at first)</span>
         <br /><br />
-        When a message comes in, it drafts a reply that sounds like you wrote it.
+        When an email comes in, it drafts a reply in your style. Early drafts may need more editing while it's still learning.
         <br /><br />
         <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>You review. You send. You move on.</span>
       </>
@@ -95,7 +90,7 @@ const HowItWorks = () => {
             className="text-3xl md:text-4xl font-bold"
             style={{ color: "hsl(220, 9%, 15%)", letterSpacing: "-0.02em" }}
           >
-            Live in under 60 minutes
+            From payment to your first draft
           </h2>
         </AnimatedElement>
 
