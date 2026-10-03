@@ -29,10 +29,42 @@ export const alwaysBanned: Rule[] = [
 export const channelBanned: Rule[] = [
   {
     pattern:
-      /\bwhats\s*apps?\b|\bsms\b|\btexts\b|\btext messages?\b|\bfacebook\b|\binstagram\b|\bmessenger\b|\bvoicemail\b|\bphones?\b|\bgoogle reviews?\b|\bweb\s*chat\b|\blive chat\b/i,
+      /\bwhat\W{0,3}s\W{0,3}apps?\b|\bwa\.me\b|\bsms\b|\btexts\b|\btexting\b|\btext messages?\b|\bfacebook\b|\binsta(gram)?\b|\bmessenger\b|\bvoicemails?\b|\bphones?\b|\bgoogle reviews?\b|\bweb\s*chat\b|\blive chat\b/i,
     why: "only email works today",
   },
 ];
+
+// The rendered-page check is stricter than the source check, because page
+// text has no code comments to trip over: it also bans calls, social media,
+// direct messages and the like.
+export const renderedChannelBanned: Rule[] = [
+  ...channelBanned,
+  {
+    pattern:
+      /\b(phone )?calls?\b|\bcalling\b|\bcall us\b|\bsocial (media|dms?|messages?)\b|\bdirect messages?\b|\btik\s*tok\b|\btelegram\b|\bsignal app\b|\bwechat\b|\btwitter\b|\bx\.com\b/i,
+    why: "only email works today",
+  },
+];
+
+// Letters from other scripts that look like Latin ones.
+const lookAlikes: Record<string, string> = {
+  а: "a", в: "b", е: "e", к: "k", м: "m", н: "h", о: "o", р: "p", с: "c", т: "t", у: "y", х: "x",
+  і: "i", ј: "j", ѕ: "s", ԁ: "d", һ: "h", ԛ: "q", ԝ: "w", ɡ: "g", ӏ: "l",
+  А: "A", В: "B", Е: "E", К: "K", М: "M", Н: "H", О: "O", Р: "P", С: "C", Т: "T", У: "Y", Х: "X",
+  І: "I", Ј: "J", Ѕ: "S", Ԁ: "D", Һ: "H", Ԛ: "Q", Ԝ: "W",
+  α: "a", ο: "o", ρ: "p", ν: "v", τ: "t", υ: "u", ι: "i", κ: "k",
+  Α: "A", Β: "B", Ε: "E", Η: "H", Ι: "I", Κ: "K", Μ: "M", Ν: "N", Ο: "O", Ρ: "P", Τ: "T", Χ: "X", Υ: "Y", Ζ: "Z",
+};
+
+// Folds full-width forms, look-alike letters, soft hyphens and zero-width
+// characters, and collapses whitespace, so "２４／７", "Whаts\u00adApp" and
+// "free\n trial" all read as plain text.
+export const foldText = (text: string) =>
+  text
+    .normalize("NFKC")
+    .replace(/[\u00ad\u200b-\u200f\u2060\ufeff]/g, "")
+    .replace(/[\u0080-\uffff]/g, (c) => lookAlikes[c] ?? c)
+    .replace(/\s+/g, " ");
 
 // The only file allowed to name other channels, inside its marked
 // before-story parts. A marker anywhere else is ignored.
@@ -65,9 +97,9 @@ export const visibleText = (text: string) =>
       .replace(/<[^<>]*>/g, "")
       .replace(/\{\s*(["'`])((?:(?!\1)[^\\]|\\.)*)\1\s*\}/g, "$2")
       .replace(/\{\s*[\w.]+\s*\}/g, ""),
-  ).replace(/[\u200b-\u200d\u2060\ufeff]/g, "");
+  );
 
-const normalise = (text: string) => text.replace(/\s+/g, " ");
+const normalise = foldText;
 
 // Each rule is checked against both the raw source and its visible text, so a
 // phrase split by markup or code is still caught.
@@ -80,4 +112,10 @@ export const findBannedClaims = (text: string, file = ""): string[] => {
     ...alwaysBanned.filter((r) => matches(r, text)),
     ...channelBanned.filter((r) => matches(r, outsideStory)),
   ].map((r) => r.why);
+};
+
+// For text taken from rendered pages: what visitors actually read.
+export const findBannedInRendered = (text: string): string[] => {
+  const folded = foldText(text);
+  return [...alwaysBanned, ...renderedChannelBanned].filter((r) => r.pattern.test(folded)).map((r) => r.why);
 };

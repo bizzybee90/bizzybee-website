@@ -121,7 +121,7 @@ const ChaosCard = ({ card, transform, isDark, stage }: { card: (typeof MESSAGE_C
   const showBadge = stage >= 2 && card.urgent;
   const showDot = stage >= 1 && card.unread && !showBadge;
   return (
-    <div className="absolute top-0 left-0 w-full" style={{
+    <div data-before-story="" className="absolute top-0 left-0 w-full" style={{
       transform: `translate(${transform.x}px, ${transform.y}px) rotate(${transform.rotate}deg) scale(${transform.scale})`,
       opacity: transform.opacity,
       zIndex: 10 - MESSAGE_CARDS.indexOf(card) + (card.urgent && stage >= 2 ? 5 : 0),
@@ -405,7 +405,7 @@ const DesktopGrowthTrap = () => {
                 </div>
               </motion.div>
             ) : (
-              <motion.div key={visualStage} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
+              <motion.div key={visualStage} data-before-story={isWayout ? undefined : ""} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1], exit: { duration: 0.12 } }} className="max-w-[460px]">
                 <div className="uppercase" style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.2em", color: labelColor, marginBottom: 16 }}>
                   {stageData!.label}
@@ -491,7 +491,7 @@ const DesktopGrowthTrap = () => {
           {showNotifs && (
             <>
               {[...NOTIF_ITEMS, ...(visualStage === 3 ? EXTRA_NOTIFS : [])].map((n, i) => (
-                <div key={`notif-${i}`} className="absolute pointer-events-none z-[5]" style={{
+                <div key={`notif-${i}`} data-before-story="" className="absolute pointer-events-none z-[5]" style={{
                   left: `${n.x}%`, top: `${n.y}%`,
                   opacity: visualStage === 3 ? 0.9 : 0.55,
                   transform: `scale(${visualStage === 3 ? 1 : 0.85})`,
@@ -535,7 +535,7 @@ const MobileGrowthTrap = () => (
       const isWayout = i === 4;
       const typo = TYPO_STYLES[i];
       return (
-        <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
+        <motion.div key={i} data-before-story={isWayout ? undefined : ""} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }} viewport={{ once: true, margin: "-60px" }}
           className="max-w-md mx-auto mb-12 rounded-2xl p-6"
           style={{ backgroundColor: isDark ? "hsl(20, 44%, 12%)" : isWayout ? "hsl(44, 70%, 96%)" : "hsl(40, 20%, 98%)" }}>
