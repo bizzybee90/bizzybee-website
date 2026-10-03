@@ -150,8 +150,8 @@ const ChaosCard = ({ card, transform, isDark, stage }: { card: (typeof MESSAGE_C
 };
 
 const OrganisedCard = ({ card, index }: { card: (typeof ORGANISED_CARDS)[0]; index: number }) => (
-  <motion.div className="absolute top-0 left-0 w-full" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }} style={{ transform: `translateY(${index * 56}px)` }}>
+  <motion.div className="absolute left-0 w-full" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }} style={{ top: index * 56 }}>
     <div className="flex items-center gap-2" style={{ background: "white", border: "1px solid #e5e7eb", borderRadius: 10, padding: "8px 12px", boxShadow: "0 1px 3px rgba(0,0,0,0.03)" }}>
       <div className="shrink-0 rounded" style={{ width: 4, height: 28, background: card.color }} />
       <div className="flex-1 min-w-0">
