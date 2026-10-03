@@ -43,6 +43,12 @@ const processors: { name: string; purpose: string; data: string; where: React.Re
     where: <PendingMarker>Remove if not enabled at launch</PendingMarker>,
   },
   {
+    name: "Google (Places)",
+    purpose: "Looks up your business name and address while you set up your account",
+    data: "The business name and location you search for",
+    where: "USA",
+  },
+  {
     name: "Stripe",
     purpose: "Takes payments and manages subscriptions",
     data: "Name, email address and billing details. We never see your full card number",

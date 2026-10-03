@@ -34,6 +34,10 @@ export const channelBanned: Rule[] = [
   },
 ];
 
+// The only file allowed to name other channels, inside its marked
+// before-story parts. A marker anywhere else is ignored.
+export const BEFORE_STORY_FILE = "/src/components/GrowthTrapStory.tsx";
+
 // Removes the marked before-story parts: blocks between
 // `// before-story:start` and `// before-story:end`, and single lines ending
 // in `// before-story`.
@@ -44,13 +48,36 @@ export const withoutBeforeStory = (text: string) =>
     .filter((line) => !/\/\/ before-story\s*$/.test(line))
     .join("\n");
 
+const entities: Record<string, string> = { nbsp: " ", amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", shy: "" };
+
+const decodeEntities = (text: string) =>
+  text
+    .replace(/&#x([0-9a-f]+);/gi, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))
+    .replace(/&#(\d+);/g, (_, dec) => String.fromCodePoint(parseInt(dec, 10)))
+    .replace(/&([a-z]+);/gi, (m, name) => entities[name.toLowerCase()] ?? m);
+
+// The text a reader would see, roughly: tags removed (so "free <strong>trial"
+// and "24/<wbr />7" join up), string expressions inlined (What{"s"}App),
+// other simple expressions dropped, and entities decoded.
+export const visibleText = (text: string) =>
+  decodeEntities(
+    text
+      .replace(/<[^<>]*>/g, "")
+      .replace(/\{\s*(["'`])((?:(?!\1)[^\\]|\\.)*)\1\s*\}/g, "$2")
+      .replace(/\{\s*[\w.]+\s*\}/g, ""),
+  ).replace(/[\u200b-\u200d\u2060\ufeff]/g, "");
+
 const normalise = (text: string) => text.replace(/\s+/g, " ");
 
-export const findBannedClaims = (text: string): string[] => {
-  const all = normalise(text);
-  const outsideStory = normalise(withoutBeforeStory(text));
+// Each rule is checked against both the raw source and its visible text, so a
+// phrase split by markup or code is still caught.
+const matches = (rule: Rule, text: string) =>
+  rule.pattern.test(normalise(text)) || rule.pattern.test(normalise(visibleText(text)));
+
+export const findBannedClaims = (text: string, file = ""): string[] => {
+  const outsideStory = file === BEFORE_STORY_FILE ? withoutBeforeStory(text) : text;
   return [
-    ...alwaysBanned.filter((r) => r.pattern.test(all)),
-    ...channelBanned.filter((r) => r.pattern.test(outsideStory)),
+    ...alwaysBanned.filter((r) => matches(r, text)),
+    ...channelBanned.filter((r) => matches(r, outsideStory)),
   ].map((r) => r.why);
 };

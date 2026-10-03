@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { plans, signupUrl, MONEY_BACK_DAYS, FOUNDER_PLACES, pending } from "@/lib/offer";
-import { findBannedClaims } from "./claims";
+import { findBannedClaims, BEFORE_STORY_FILE } from "./claims";
 
 // Every page, component and content file, as text, so the copy can be checked
 // for promises we can't keep. Tests and the generic UI kit are left out.
@@ -70,23 +70,57 @@ describe("the banned-claims check", () => {
     expect(findBannedClaims("Start your free\n          trial")).toContain("there is no free trial");
   });
 
-  it("allows other channels only inside the marked before-story", () => {
-    const marked = "// before-story:start\nconst cards = [{ from: \"WhatsApp\" }];\n// before-story:end";
-    expect(findBannedClaims(marked)).toEqual([]);
-    expect(findBannedClaims('const line = "more WhatsApps"; // before-story')).toEqual([]);
-    expect(findBannedClaims('const line = "more WhatsApps";')).toEqual(["only email works today"]);
+  // Phrases split by markup or code, as the second review tried in Hero.
+  const hero = sources["/src/components/Hero.tsx"];
+  const heroWith = (line: string) => hero.replace("You check it and press send.", line);
+
+  it("catches a phrase split by a tag", () => {
+    expect(findBannedClaims(heroWith("Start your free <strong>trial</strong> today."))).toContain(
+      "there is no free trial",
+    );
+  });
+
+  it("catches 24/7 split by a line-break hint", () => {
+    expect(findBannedClaims(heroWith("We answer 24/<wbr />7."))).toContain("no round-the-clock claims");
+  });
+
+  it("catches a channel name split by a code expression", () => {
+    expect(findBannedClaims(heroWith('We answer What{"s"}App too.'))).toContain("only email works today");
+  });
+
+  it("catches a channel name written with an HTML entity or a hidden space", () => {
+    expect(findBannedClaims(heroWith("We answer &#87;hatsApp too."))).toContain("only email works today");
+    expect(findBannedClaims(heroWith("We answer Whats\u200bApp too."))).toContain("only email works today");
+  });
+
+  it("allows other channels only inside the marked before-story of the story file", () => {
+    const block = "// before-story:start\nconst cards = [{ from: \"WhatsApp\" }];\n// before-story:end";
+    const line = 'const line = "more WhatsApps"; // before-story';
+    expect(findBannedClaims(block, BEFORE_STORY_FILE)).toEqual([]);
+    expect(findBannedClaims(line, BEFORE_STORY_FILE)).toEqual([]);
+    expect(findBannedClaims('const line = "more WhatsApps";', BEFORE_STORY_FILE)).toEqual(["only email works today"]);
+  });
+
+  it("ignores a before-story marker in any other file", () => {
+    const faq = sources["/src/components/FAQ.tsx"].replace(
+      "const faqs = [",
+      'const faqs = [\n  { q: "Do you answer WhatsApp and Facebook?", a: "Yes." }, // before-story',
+    );
+    expect(findBannedClaims(faq, "/src/components/FAQ.tsx")).toContain("only email works today");
+    const block = "// before-story:start\nconst cards = [{ from: \"WhatsApp\" }];\n// before-story:end";
+    expect(findBannedClaims(block, "/src/components/FAQ.tsx")).toContain("only email works today");
   });
 
   it("still bans a free trial inside the before-story", () => {
     const marked = "// before-story:start\nconst t = \"free trial\";\n// before-story:end";
-    expect(findBannedClaims(marked)).toContain("there is no free trial");
+    expect(findBannedClaims(marked, BEFORE_STORY_FILE)).toContain("there is no free trial");
   });
 });
 
 describe("the site's copy", () => {
   for (const [file, text] of Object.entries(sources)) {
     it(`${file} makes no banned claims`, () => {
-      expect(findBannedClaims(text)).toEqual([]);
+      expect(findBannedClaims(text, file)).toEqual([]);
     });
   }
 });
