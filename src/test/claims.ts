@@ -46,9 +46,11 @@ export const alwaysBanned: Rule[] = [
   // The numbers are enforced, so they're a monthly allowance (Michael's
   // term), not a soft "fair use" limit.
   { pattern: /fair[- ]use/i, why: "allowances are a monthly allowance, not fair use" },
-  // Michael, 3 Oct 21:59-22:01: refer to the company only as "BizzyBee" for
-  // now; its legal entity and address come later. Until then nothing may
-  // call it a limited company or place it in England & Wales or London.
+  // Michael, 3 Oct 22:00: a limited company, not trading yet, to be run from
+  // Poland; 22:01: "just refer as BizzyBee" for now. Until the legal entity
+  // and its address are named (pre-publish item 15), nothing may call it a
+  // limited company or place it in England & Wales or London. Relax this
+  // rule when the entity is named.
   {
     pattern:
       /\bltd\b|\blimited\b(?!\s+to\b)|\bregistered in\b|england\s*(&|and)\s*wales|\blondon,?\s+(united kingdom|uk|england)\b|\b(based|headquartered|registered|registered office( is)?) in london\b|\buk[- ]based\b/i,

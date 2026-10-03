@@ -224,6 +224,17 @@ describe("what visitors read", () => {
     expect(readPage()).toContain("keeps your customer emails from getting buried");
   });
 
+  // Until the legal entity is named (pre-publish item 15), the footer gives
+  // no city or country for the company: its Contact column is just the email.
+  it("lists only the email address under Contact in the footer", async () => {
+    window.history.pushState({}, "", "/");
+    render(<App />);
+    await tick();
+    const heading = [...document.querySelectorAll("footer h4")].find((h) => h.textContent === "Contact")!;
+    const items = [...heading.nextElementSibling!.querySelectorAll("li")].map((li) => li.textContent);
+    expect(items).toEqual(["hello@bizzybee.co.uk"]);
+  });
+
   it("checks the page title and share text", () => {
     const doc = new DOMParser().parseFromString(indexHtml, "text/html");
     const meta = [...doc.querySelectorAll("meta")].map((m) => m.getAttribute("content") ?? "");
