@@ -55,7 +55,7 @@ const Hero = () => (
         <AnimatedElement className="mt-14">
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
-              <Mail size={14} className="text-primary" /> Works with Gmail, Outlook and most mailboxes
+              <Mail size={14} className="text-primary" /> Works with Gmail and Outlook
             </span>
             <span className="w-1 h-1 rounded-full bg-border hidden sm:block" />
             <span className="inline-flex items-center gap-1.5">

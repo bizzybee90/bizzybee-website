@@ -43,7 +43,7 @@ export const plans: Plan[] = [
     description:
       "One calm inbox for your business email, with each customer's full history. No AI, just you in control.",
     features: [
-      "Connect Gmail, Microsoft 365/Outlook or most other mailboxes",
+      "Connect your Gmail or Microsoft 365/Outlook mailbox",
       "Bring in your past emails, so every customer's history is there",
       "Reply, assign, snooze and archive from one place",
       "No AI reads or writes anything",

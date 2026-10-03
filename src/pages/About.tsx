@@ -24,7 +24,7 @@ const About = () => (
                 An inbox that never stopped filling. Quotes typed out on the sofa at 10 PM. Leads going cold because you couldn't reply fast enough. Sound familiar?
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                We knew AI could fix this — but every solution on the market was built for enterprise. None of them understood the reality of a sole trader or small team juggling tools, vans and a phone that never stops.
+                We knew AI could fix this — but every solution on the market was built for enterprise. None of them understood the reality of a sole trader or small team juggling tools, vans and an inbox that never stops.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
                 So we built BizzyBee for UK service businesses: one calm inbox for every customer email, and, if you want it, an assistant that drafts each reply in your voice for you to check and send.

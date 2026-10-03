@@ -9,24 +9,7 @@ import {
   MONEY_BACK_DAYS,
   FOUNDER_PLACES,
 } from "@/lib/offer";
-
-// Shown wherever a value still waits on an owner decision, so a draft
-// can never be mistaken for the published offer.
-const PendingMarker = ({ children }: { children: React.ReactNode }) => (
-  <span
-    className="inline-block"
-    style={{
-      fontSize: 11,
-      fontWeight: 600,
-      color: "hsl(0, 65%, 45%)",
-      border: "1px dashed hsl(0, 65%, 55%)",
-      borderRadius: 6,
-      padding: "1px 6px",
-    }}
-  >
-    {children}
-  </span>
-);
+import PendingMarker from "@/components/PendingMarker";
 
 const VatLabel = () =>
   pending.vatLabel ? (
@@ -44,7 +27,7 @@ const steps = [
   {
     icon: <Mail className="w-4 h-4" />,
     title: "Connect your email",
-    text: "Gmail, Microsoft 365/Outlook or most other mailboxes.",
+    text: "Gmail or Microsoft 365/Outlook, in a few clicks.",
   },
   {
     icon: <Inbox className="w-4 h-4" />,

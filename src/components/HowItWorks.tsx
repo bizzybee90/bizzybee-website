@@ -13,7 +13,7 @@ const steps = [
       <>
         Choose your plan and pay securely through Stripe.
         <br /><br />
-        Then connect your Gmail, Outlook or other mailbox in a few clicks. Your past emails come in, so every customer's history is there from day one.
+        Then connect your Gmail or Outlook mailbox in a few clicks. Your past emails come in, so every customer's history is there from day one.
         <br /><br />
         <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>Not for you? Ask within {MONEY_BACK_DAYS} days for a full refund of your first payment.</span>
       </>
@@ -27,7 +27,7 @@ const steps = [
       <>
         On the AI Assistant plan, BizzyBee reads the emails you've sent to learn how you write: your tone, your phrasing, your sign-off.
         <br /><br />
-        It reads your website for your services, prices and the areas you cover, and you can add or correct anything in plain English.
+        You tell it your services, prices and the areas you cover, in plain English, and change them whenever you like.
         <br /><br />
         <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>It doesn't guess your voice. It learns it.</span>
       </>

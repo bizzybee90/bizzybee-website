@@ -1,4 +1,5 @@
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
+import PendingMarker, { LegalDraftBanner } from "@/components/PendingMarker";
 
 const Terms = () => (
   <main>
@@ -11,16 +12,19 @@ const Terms = () => (
           >
             Terms of Service
           </h1>
-          <p className="text-sm mb-8" style={{ color: "hsl(220, 9%, 50%)" }}>
-            Last updated: March 2026
+          <p className="text-sm mb-4" style={{ color: "hsl(220, 9%, 50%)" }}>
+            Last updated: <PendingMarker>Draft, 3 October 2026</PendingMarker>
           </p>
+          <LegalDraftBanner />
 
           <div className="space-y-8" style={{ color: "hsl(220, 9%, 30%)", fontSize: 15, lineHeight: 1.8 }}>
             <section>
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>1. Agreement</h2>
               <p>
                 By accessing or using BizzyBee, you agree to be bound by these Terms of Service.
-                BizzyBee is operated by BizzyBee Ltd, registered in England &amp; Wales.
+                BizzyBee is operated by <PendingMarker>BizzyBee Ltd: confirm legal name</PendingMarker>,
+                registered in England &amp; Wales, company number <PendingMarker>to confirm</PendingMarker>,
+                registered office <PendingMarker>to confirm</PendingMarker>.
               </p>
             </section>
 
@@ -68,6 +72,11 @@ const Terms = () => (
                 Your use of BizzyBee is also governed by our{" "}
                 <a href="/privacy" style={{ color: "hsl(35, 55%, 55%)" }}>Privacy Policy</a>.
                 We take data protection seriously and comply with UK GDPR.
+              </p>
+              <p className="mt-3">
+                For the emails of your customers that pass through BizzyBee, your business is the controller and
+                BizzyBee processes them on your behalf.{" "}
+                <PendingMarker>Data processing terms (UK GDPR Article 28) to be added after legal review</PendingMarker>
               </p>
             </section>
 

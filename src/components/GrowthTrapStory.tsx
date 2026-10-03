@@ -3,6 +3,9 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── Message cards (the raw inbox) ───
+// These show the owner's life *before* BizzyBee, across every channel they
+// juggle today. They are the problem, not a list of what BizzyBee handles.
+// before-story:start
 const MESSAGE_CARDS = [
   { id: 1, type: "email", from: "Sarah Mitchell", subject: "Quote for 3-bed clean?", preview: "Hi, wondering if you could give me a quote for a 3-bed semi in Luton...", time: "10:32 AM", channel: "Email", urgent: false, unread: true },
   { id: 2, type: "whatsapp", from: "Jim Henderson", subject: "Emergency leak", preview: "Got a leak under the kitchen sink, any chance you can come today?", time: "11:15 AM", channel: "WhatsApp", urgent: true, unread: true },
@@ -16,6 +19,7 @@ const MESSAGE_CARDS = [
   { id: 9, type: "whatsapp", from: "Lisa Chen", subject: "Photo attached", preview: "Here's the photo of the tap I mentioned — can you fix this type?", time: "Monday", channel: "WhatsApp", urgent: false, unread: true },
   { id: 10, type: "email", from: "NO REPLY", subject: "Special offer!!!", preview: "UNBEATABLE DEALS ON PLUMBING SUPPLIES — CLICK NOW", time: "Today", channel: "Spam", urgent: false, unread: false },
 ];
+// before-story:end
 
 // ─── BizzyBee organised inbox ───
 const ORGANISED_CARDS = [
@@ -31,12 +35,12 @@ const ORGANISED_CARDS = [
 const STAGES = [
   {
     label: "The Beginning",
-    description: "You started this business and it was your baby. Just you, doing great work. You picked up the phone every time. You replied to every email that evening. You gave quotes the same day. Customers chose you because the last company they called never got back to them — but you did. You were the one with the great reviews. The one people recommended.",
+    description: "You started this business and it was your baby. Just you, doing great work. You picked up the phone every time. You replied to every email that evening. You gave quotes the same day. Customers chose you because the last company they called never got back to them — but you did. You were the one with the great reviews. The one people recommended.", // before-story
     closingLine: "",
   },
   {
     label: "The Growth",
-    description: "Word spread. More customers came. More calls, more emails, more WhatsApps. You got busier and busier. That was the dream, right?",
+    description: "Word spread. More customers came. More calls, more emails, more WhatsApps. You got busier and busier. That was the dream, right?", // before-story
     closingLine: "",
   },
   {
@@ -52,13 +56,15 @@ const STAGES = [
   {
     label: "The Way Out",
     description: "BizzyBee exists because this story shouldn't have to end that way. It gives you back the thing you lost when you got busy: time. Not by doing the work for you, but by handling everything around it: the emails, the quotes, the follow-ups. Every customer in one inbox, every reply drafted in your voice, ready for you to send.",
-    closingLine: "You keep doing the work you love. BizzyBee makes sure no customer ever feels ignored again.",
+    closingLine: "You keep doing the work you love. BizzyBee keeps your customer emails from getting buried.",
   },
 ];
 
+// before-story:start
 const CHANNEL_ICONS: Record<string, string> = {
   email: "✉️", whatsapp: "💬", sms: "📱", call: "📞", facebook: "👤",
 };
+// before-story:end
 
 // ─── Card chaos positions per visual stage ───
 const getCardTransform = (visualStage: number, i: number) => {
@@ -94,6 +100,7 @@ const LABEL_COLORS: Record<number, string> = {
   [-1]: "#9E7A3C", 0: "#9E7A3C", 1: "#9E7A3C", 2: "#BE9650", 3: "#BE9650", 4: "#9E7A3C",
 };
 
+// before-story:start
 const NOTIF_ITEMS = [
   { icon: "📧", text: "3 unread", x: 2, y: 6 },
   { icon: "📞", text: "Missed call", x: 76, y: 3 },
@@ -104,6 +111,7 @@ const EXTRA_NOTIFS = [
   { icon: "📱", text: "Facebook (4)", x: 78, y: 45 },
   { icon: "🔔", text: "Reminder", x: 4, y: 50 },
 ];
+// before-story:end
 const FEATURE_CHIPS = ["One inbox", "AI Drafts", "Voice Learning", "Your Prices", "Smart Sort"];
 
 // ─── Sub-components ───

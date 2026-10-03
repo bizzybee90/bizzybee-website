@@ -1,13 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { plans, signupUrl, MONEY_BACK_DAYS, FOUNDER_PLACES, pending } from "@/lib/offer";
+import { findBannedClaims } from "./claims";
 
-// Every page and component, as text, so the copy can be checked for promises
-// we can't keep.
-const sources = import.meta.glob(["/src/**/*.tsx", "/index.html", "!/src/components/ui/**"], {
-  query: "?raw",
-  import: "default",
-  eager: true,
-}) as Record<string, string>;
+// Every page, component and content file, as text, so the copy can be checked
+// for promises we can't keep. Tests and the generic UI kit are left out.
+const sources = import.meta.glob(
+  ["/src/**/*.{ts,tsx}", "/index.html", "!/src/test/**", "!/src/components/ui/**"],
+  { query: "?raw", import: "default", eager: true },
+) as Record<string, string>;
 
 describe("the offer", () => {
   it("has the two agreed plans at the agreed prices", () => {
@@ -35,32 +35,58 @@ describe("the offer", () => {
   });
 });
 
-describe("the copy", () => {
-  // Pay-first with a money-back promise replaced the trial, and only email
-  // works today. None of these may come back without the owner's say-so.
-  const banned: [RegExp, string][] = [
-    [/free trial/i, "there is no free trial"],
-    [/no credit card/i, "payment comes first"],
-    [/(hundreds|thousands) of (uk )?(service )?businesses/i, "no customer counts we can't show"],
-    [/24\/7/, "no round-the-clock claims"],
-    [/auto-handled/i, "nothing is handled without the owner"],
-    [/AI phone|phone agent/i, "AI phone is not sold"],
-    [/Google (My )?Business/i, "Google Business messaging is retired and not sold"],
-    [/WhatsApp (Business )?AI|SMS AI|SMS Auto/i, "WhatsApp and SMS are not available"],
-    [/Facebook (&|and) Instagram/i, "Meta channels are not available"],
-  ];
-
-  it("reads the site's pages", () => {
-    expect(Object.keys(sources)).toContain("/src/components/Hero.tsx");
-    expect(Object.keys(sources)).toContain("/index.html");
+describe("the banned-claims check", () => {
+  it("reads the site's pages and content files", () => {
+    const files = Object.keys(sources);
+    expect(files).toContain("/src/components/Hero.tsx");
+    expect(files).toContain("/src/lib/offer.ts");
+    expect(files).toContain("/index.html");
   });
 
-  for (const [pattern, why] of banned) {
-    it(`doesn't say ${pattern} (${why})`, () => {
-      const hits = Object.entries(sources)
-        .filter(([, text]) => pattern.test(text))
-        .map(([file]) => file);
-      expect(hits).toEqual([]);
+  // The two edits that slipped past the first version of this check.
+  it("catches a free trial in the offer file", () => {
+    const offer = sources["/src/lib/offer.ts"].replace(
+      "No AI reads or writes anything",
+      "Start your free trial today",
+    );
+    expect(findBannedClaims(offer)).toContain("there is no free trial");
+  });
+
+  it("catches unsupported channels, spaced-out 24/7 and auto-send in the hero", () => {
+    const hero = sources["/src/components/Hero.tsx"].replace(
+      "You check it and press send.",
+      "We answer WhatsApp, SMS and Facebook messages 24 / 7, and auto-send replies.",
+    );
+    expect(findBannedClaims(hero)).toEqual(
+      expect.arrayContaining([
+        "only email works today",
+        "no round-the-clock claims",
+        "nothing is sent or handled without the owner",
+      ]),
+    );
+  });
+
+  it("catches claims split across lines", () => {
+    expect(findBannedClaims("Start your free\n          trial")).toContain("there is no free trial");
+  });
+
+  it("allows other channels only inside the marked before-story", () => {
+    const marked = "// before-story:start\nconst cards = [{ from: \"WhatsApp\" }];\n// before-story:end";
+    expect(findBannedClaims(marked)).toEqual([]);
+    expect(findBannedClaims('const line = "more WhatsApps"; // before-story')).toEqual([]);
+    expect(findBannedClaims('const line = "more WhatsApps";')).toEqual(["only email works today"]);
+  });
+
+  it("still bans a free trial inside the before-story", () => {
+    const marked = "// before-story:start\nconst t = \"free trial\";\n// before-story:end";
+    expect(findBannedClaims(marked)).toContain("there is no free trial");
+  });
+});
+
+describe("the site's copy", () => {
+  for (const [file, text] of Object.entries(sources)) {
+    it(`${file} makes no banned claims`, () => {
+      expect(findBannedClaims(text)).toEqual([]);
     });
   }
 });

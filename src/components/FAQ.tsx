@@ -19,7 +19,7 @@ const faqs = [
   },
   {
     q: "Which email accounts work with BizzyBee?",
-    a: "Gmail and Google Workspace, Microsoft 365 and Outlook, and most other mailboxes. BizzyBee works with email today, and we'll tell you as soon as more channels are ready.",
+    a: "Gmail and Google Workspace, and Microsoft 365 and Outlook. BizzyBee works with email today, and we'll tell you as soon as more mailboxes and channels are ready.",
   },
   {
     q: "Will the AI send anything without me?",
