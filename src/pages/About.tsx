@@ -18,19 +18,19 @@ const About = () => (
           <AnimatedElement>
             <div className="prose prose-lg max-w-none">
               <p className="text-muted-foreground leading-relaxed mb-6">
-                BizzyBee was born from frustration. Our founders ran service businesses across the UK — plumbing, electrical, cleaning — and every single one hit the same wall: more customers meant more chaos.
+                BizzyBee was born from frustration. Our founder ran a window cleaning business with 840 customers and hit the wall every growing service business hits: more customers meant more chaos.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Messages from five different channels. Quotes typed out on the sofa at 10 PM. Leads going cold because you couldn't reply fast enough. Sound familiar?
+                An inbox that never stopped filling. Quotes typed out on the sofa at 10 PM. Leads going cold because you couldn't reply fast enough. Sound familiar?
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                We knew AI could fix this — but every solution on the market was built for enterprise. None of them understood the reality of a sole trader or small team juggling tools, vans, and a million WhatsApp messages.
+                We knew AI could fix this — but every solution on the market was built for enterprise. None of them understood the reality of a sole trader or small team juggling tools, vans and a phone that never stops.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                So we built BizzyBee: an AI customer service hub designed from the ground up for UK service businesses. It's simple enough to set up in an hour, smart enough to sound exactly like you, and affordable enough for any business.
+                So we built BizzyBee for UK service businesses: one calm inbox for every customer email, and, if you want it, an assistant that drafts each reply in your voice for you to check and send.
               </p>
               <p className="text-foreground leading-relaxed font-medium">
-                Today, thousands of UK businesses trust BizzyBee to handle their customer communications — so they can focus on the work they love.
+                We're opening to our first customers now. If that's you, the first 50 on the AI Assistant plan keep a founder price for as long as they stay.
               </p>
             </div>
           </AnimatedElement>

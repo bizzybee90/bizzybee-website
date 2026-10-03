@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronDown, Mail, CreditCard, Clock } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, ShieldCheck, PenLine } from "lucide-react";
+import { MONEY_BACK_DAYS } from "@/lib/offer";
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
 
 const Hero = () => (
@@ -28,7 +29,7 @@ const Hero = () => (
 
         <AnimatedElement>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-            You do the work. We do the words. BizzyBee reads your emails, texts, and WhatsApp messages — understands what they need — and drafts replies in your voice. You just check and send.
+            You do the work. We do the words. BizzyBee puts every customer email in one calm inbox, sorts what needs you first, and drafts the reply in your voice. You check it and press send.
           </p>
         </AnimatedElement>
 
@@ -37,7 +38,7 @@ const Hero = () => (
             to="/pricing"
             className="inline-flex items-center gap-2 gradient-honey text-primary-foreground px-8 py-4 rounded-xl text-base font-medium shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
-            Start Your Free Trial <ArrowRight size={18} />
+            Choose your plan <ArrowRight size={18} />
           </Link>
           <a
             href="#features"
@@ -54,15 +55,15 @@ const Hero = () => (
         <AnimatedElement className="mt-14">
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-muted-foreground">
             <span className="inline-flex items-center gap-1.5">
-              <Mail size={14} className="text-primary" /> Works with Gmail & Outlook
+              <Mail size={14} className="text-primary" /> Works with Gmail, Outlook and most mailboxes
             </span>
             <span className="w-1 h-1 rounded-full bg-border hidden sm:block" />
             <span className="inline-flex items-center gap-1.5">
-              <CreditCard size={14} className="text-primary" /> No credit card required
+              <ShieldCheck size={14} className="text-primary" /> {MONEY_BACK_DAYS}-day money-back promise
             </span>
             <span className="w-1 h-1 rounded-full bg-border hidden sm:block" />
             <span className="inline-flex items-center gap-1.5">
-              <Clock size={14} className="text-primary" /> Set up in 15 minutes
+              <PenLine size={14} className="text-primary" /> Nothing sends without your OK
             </span>
           </div>
         </AnimatedElement>
@@ -77,24 +78,24 @@ const Hero = () => (
                   <div className="w-3 h-3 rounded-full bg-primary/40" />
                   <div className="w-3 h-3 rounded-full bg-green-500/40" />
                 </div>
-                <span className="font-mono-label text-muted-foreground ml-2">BizzyBee Dashboard</span>
+                <span className="font-mono-label text-muted-foreground ml-2">Example · BizzyBee AI Assistant</span>
               </div>
               <div className="p-8 space-y-4 bg-background-alt">
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full gradient-honey flex items-center justify-center text-sm shrink-0">🐝</div>
                   <div className="bg-background rounded-xl px-4 py-3 border border-border max-w-sm">
-                    <p className="text-sm text-foreground">Hi! I'm BizzyBee. How can I help you today? I can book an appointment, answer questions, or get a quote ready for you. 🍯</p>
+                    <p className="text-sm text-foreground">New email from Sarah Mitchell · sorted as <strong>Booking request</strong></p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3 justify-end">
                   <div className="bg-primary/10 rounded-xl px-4 py-3 max-w-xs">
-                    <p className="text-sm text-foreground">I need a plumber for a leaking tap — are you available tomorrow?</p>
+                    <p className="text-sm text-foreground">Hi, I've got a leaking tap. Any chance you could come and look at it tomorrow?</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-full gradient-honey flex items-center justify-center text-sm shrink-0">🐝</div>
                   <div className="bg-background rounded-xl px-4 py-3 border border-border max-w-sm">
-                    <p className="text-sm text-foreground">Absolutely! I've got a slot at 10 AM or 2 PM tomorrow. Which works best? I'll get everything confirmed for you straight away. ✅</p>
+                    <p className="text-sm text-foreground">Draft reply, ready for you to check: "Hi Sarah, sorry to hear about the tap. I can come and take a look tomorrow. Would morning or afternoon suit you better?"</p>
                   </div>
                 </div>
               </div>

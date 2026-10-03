@@ -31,7 +31,6 @@ const Privacy = () => (
               <ul className="list-disc pl-6 mt-2 space-y-1">
                 <li>Account information (name, email address, business name)</li>
                 <li>Email content you connect to BizzyBee for AI processing</li>
-                <li>WhatsApp and SMS messages routed through BizzyBee</li>
                 <li>Usage data and analytics</li>
                 <li>Payment and billing information (processed by Stripe)</li>
               </ul>

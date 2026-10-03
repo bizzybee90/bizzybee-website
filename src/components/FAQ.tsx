@@ -2,31 +2,48 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { AnimatedSection, AnimatedElement } from "@/lib/motion";
 import { ChevronDown } from "lucide-react";
+import { MONEY_BACK_DAYS, FOUNDER_PLACES } from "@/lib/offer";
 
 const faqs = [
   {
-    q: "How quickly can I get set up?",
-    a: "Most businesses are live within 60 minutes. Connect your channels, train the AI with your FAQs and pricing, and you're good to go. No technical knowledge required.",
+    q: "What's the difference between the two plans?",
+    a: "BizzyBee Inbox puts all your business email and each customer's history in one place, with no AI at all. BizzyBee AI Assistant is the same inbox, plus an assistant that sorts every email and drafts the reply in your voice for you to check and send.",
   },
   {
-    q: "Will the AI sound like a robot?",
-    a: "Not at all. BizzyBee learns your tone of voice from your past messages. Customers genuinely can't tell the difference between you and your AI assistant.",
+    q: "Why do I pay before connecting my email?",
+    a: `Your customers' emails only ever come into a paid, set-up account. It also means you're using the real thing from the first minute, not a cut-down trial. If it isn't right for you, ask within ${MONEY_BACK_DAYS} days and we'll refund your first payment in full.`,
   },
   {
-    q: "What happens if the AI can't answer something?",
-    a: "It flags it for you immediately. You'll get a notification, and the customer gets a friendly 'I'll get back to you shortly' message. You're always in control.",
+    q: "How does the money-back promise work?",
+    a: `Email us within ${MONEY_BACK_DAYS} days of your first payment and we'll refund it in full. It applies to both plans.`,
   },
   {
-    q: "Which channels does BizzyBee support?",
-    a: "WhatsApp Business, Facebook Messenger, email, website live chat, and SMS. All messages flow into one unified inbox.",
+    q: "Which email accounts work with BizzyBee?",
+    a: "Gmail and Google Workspace, Microsoft 365 and Outlook, and most other mailboxes. BizzyBee works with email today, and we'll tell you as soon as more channels are ready.",
+  },
+  {
+    q: "Will the AI send anything without me?",
+    a: "No. On the AI Assistant plan every reply is a draft until you approve it. You can edit it, send it or bin it. On the Inbox plan, no AI reads or writes anything.",
+  },
+  {
+    q: "Will the drafts sound like me?",
+    a: "The AI Assistant learns from emails you've already sent, so drafts use your usual tone, phrases and sign-off. Any draft can be changed before it goes.",
+  },
+  {
+    q: "How does the founder price work?",
+    a: `The first ${FOUNDER_PLACES} AI Assistant customers pay £89 a month + VAT instead of £149, for as long as they stay subscribed to that plan. If you cancel or move to Inbox, the founder price ends. It doesn't cover add-ons we launch later.`,
+  },
+  {
+    q: "Is VAT included?",
+    a: "Prices are shown excluding VAT. VAT is added at checkout and shown on your invoice.",
+  },
+  {
+    q: "Can I change plans or cancel?",
+    a: "Yes. There's no contract. You can move between plans without losing any customer history, and you can cancel at any time.",
   },
   {
     q: "Is my data safe?",
-    a: "Absolutely. We're GDPR compliant, data is encrypted at rest and in transit, and we never share your data with third parties. Your business data stays yours.",
-  },
-  {
-    q: "Can I cancel at any time?",
-    a: "Yes — no long contracts, no cancellation fees. You can cancel your subscription at any time from your dashboard.",
+    a: "Your emails are encrypted in transit and at rest, used only to run BizzyBee for you, and never sold. Card payments are handled by Stripe, so we never see your card details.",
   },
 ];
 

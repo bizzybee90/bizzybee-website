@@ -1,11 +1,12 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { MONEY_BACK_DAYS } from "@/lib/offer";
 
 const capabilities = [
-  { icon: "💬", label: "Channels", value: "5+", detail: "WhatsApp, Email, SMS, Facebook, Web Chat" },
-  { icon: "⚡", label: "Response time", value: "<30s", detail: "Drafts ready before you see the message" },
-  { icon: "🎯", label: "Voice accuracy", value: "95%+", detail: "Learns your tone from real conversations" },
-  { icon: "🔒", label: "GDPR", value: "Compliant", detail: "UK-hosted, encrypted, your data stays yours" },
+  { icon: "📥", label: "Inbox", value: "One", detail: "Every customer email and its history in one place" },
+  { icon: "✋", label: "Sent without your OK", value: "Never", detail: "Every AI draft waits for you to approve it" },
+  { icon: "🛡️", label: "Money-back promise", value: `${MONEY_BACK_DAYS} days`, detail: "Full refund of your first payment if it isn't for you" },
+  { icon: "🔒", label: "Payments", value: "Stripe", detail: "Secure checkout. We never see your card details" },
 ];
 
 const StatsBar = () => {

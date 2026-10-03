@@ -27,18 +27,19 @@ const Terms = () => (
             <section>
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>2. Service description</h2>
               <p>
-                BizzyBee provides AI-powered customer service automation tools including email
-                management, WhatsApp messaging, voice handling and customer communication
-                for UK service businesses.
+                BizzyBee provides a shared business inbox for email (BizzyBee Inbox) and, on the
+                AI Assistant plan, AI sorting and draft replies, for UK service businesses.
               </p>
             </section>
 
             <section>
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>3. Subscriptions and billing</h2>
               <p>
-                BizzyBee operates on a monthly subscription basis. Payments are processed securely
-                via Stripe. You may cancel your subscription at any time — no contracts, no penalties.
-                Refunds are handled on a case-by-case basis.
+                BizzyBee operates on a monthly subscription basis, paid in advance before you connect
+                a mailbox. Prices are shown excluding VAT, which is added at checkout. Payments are
+                processed securely via Stripe. You may cancel your subscription at any time, with no
+                contracts and no penalties. If you ask within 30 days of your first payment, we will
+                refund that payment in full.
               </p>
             </section>
 

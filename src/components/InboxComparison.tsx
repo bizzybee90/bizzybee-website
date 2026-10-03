@@ -43,7 +43,7 @@ const emails: Email[] = [
   },
   {
     id: 3,
-    from: "WhatsApp: +44 7911...",
+    from: "Priya S.",
     subject: "Can you come tmrw?",
     time: "3 hrs ago",
     preview: "hi is anyone available tomorrow morning got an emergency with...",

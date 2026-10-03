@@ -12,7 +12,7 @@ const Footer = () => (
             </span>
           </Link>
           <p className="text-sm leading-relaxed" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>
-            AI-powered customer service hub built for UK service businesses.
+            One inbox for every customer email, and an AI assistant that drafts your replies. Built for UK service businesses.
           </p>
         </div>
 
@@ -21,7 +21,6 @@ const Footer = () => (
             <h4 className="font-mono-label mb-4" style={{ color: "hsla(40, 20%, 92%, 0.35)" }}>Contact</h4>
             <ul className="space-y-3">
               <li className="text-sm"><a href="mailto:hello@bizzybee.co.uk" className="transition-colors hover:text-primary-light" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>hello@bizzybee.co.uk</a></li>
-              <li className="text-sm"><a href="tel:08001234567" className="transition-colors hover:text-primary-light" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>0800 123 4567</a></li>
               <li className="text-sm" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>London, United Kingdom</li>
             </ul>
           </div>

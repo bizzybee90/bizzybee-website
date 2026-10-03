@@ -68,7 +68,7 @@ const Nav = () => {
  className="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium hover:shadow-lg transition-all hover:scale-[1.02] active:scale-[0.98]"
  style={{ background: "var(--accent-primary)", color: "white", borderRadius: "var(--radius-pill)", boxShadow: "var(--shadow-card)" }}
  >
- Start Free Trial
+ Choose your plan
  </a>
  </div>
 
@@ -109,7 +109,7 @@ const Nav = () => {
  href="/pricing"
  className="inline-flex items-center justify-center px-5 py-3 text-sm font-medium mt-2" style={{ background: "var(--accent-primary)", color: "white", borderRadius: "var(--radius-pill)", boxShadow: "var(--shadow-card)" }}
  >
- Start Free Trial
+ Choose your plan
  </a>
  </div>
  </motion.div>

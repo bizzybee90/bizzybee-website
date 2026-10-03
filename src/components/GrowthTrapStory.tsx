@@ -19,14 +19,12 @@ const MESSAGE_CARDS = [
 
 // ─── BizzyBee organised inbox ───
 const ORGANISED_CARDS = [
-  { id: 1, label: "Hot Lead", summary: "Sarah wants a quote for a 3-bed in Luton. Asked twice — seems frustrated.", status: "Draft reply ready", color: "#FF3B30" },
-  { id: 2, label: "Emergency", summary: "Jim has a kitchen leak. Needs same-day visit.", status: "Draft reply ready", color: "#FF9500" },
-  { id: 5, label: "Complaint", summary: "Karen's been waiting 3 days. Needs immediate attention.", status: "Apology drafted", color: "#FF3B30" },
-  { id: 3, label: "Booking", summary: "Thursday → Friday reschedule request.", status: "Auto-handled ✓", color: "#eab308" },
-  { id: 9, label: "Enquiry", summary: "Lisa sent a photo of a tap for assessment.", status: "Draft reply ready", color: "#eab308" },
-  { id: 6, label: "Voicemail", summary: "New enquiry from Google — MK area, wants a quote.", status: "Draft reply ready", color: "#6b7280" },
-  { id: 7, label: "Social", summary: "Facebook enquiry — MK area coverage question.", status: "Auto-handled ✓", color: "#6b7280" },
-  { id: 10, label: "Cleared", summary: "Spam email auto-filtered.", status: "Auto-cleared", color: "#d1d5db" },
+  { id: 1, label: "Quote", summary: "Sarah wants a quote for a 3-bed in Luton. Asked twice, seems frustrated.", status: "Draft reply ready", color: "#FF3B30" },
+  { id: 4, label: "Follow-up", summary: "Tom is chasing his quote for the third time.", status: "Draft reply ready", color: "#FF9500" },
+  { id: 12, label: "Complaint", summary: "Customer unhappy with a missed visit. Needs you today.", status: "Apology drafted", color: "#FF3B30" },
+  { id: 13, label: "Booking", summary: "Asks to move Thursday's visit to Friday.", status: "Draft reply ready", color: "#eab308" },
+  { id: 14, label: "Enquiry", summary: "Do you cover the MK area?", status: "Draft reply ready", color: "#6b7280" },
+  { id: 10, label: "Junk", summary: "Supplier spam moved out of the way.", status: "Filed as junk", color: "#d1d5db" },
 ];
 
 // ─── Exact approved copy ───
@@ -53,7 +51,7 @@ const STAGES = [
   },
   {
     label: "The Way Out",
-    description: "BizzyBee exists because this story shouldn't have to end that way. It gives you back the thing you lost when you got busy: time. Not by doing the work for you — by handling everything around it. The emails, the texts, the missed calls, the follow-ups. It's like hiring a full office team for less than the cost of one.",
+    description: "BizzyBee exists because this story shouldn't have to end that way. It gives you back the thing you lost when you got busy: time. Not by doing the work for you, but by handling everything around it: the emails, the quotes, the follow-ups. Every customer in one inbox, every reply drafted in your voice, ready for you to send.",
     closingLine: "You keep doing the work you love. BizzyBee makes sure no customer ever feels ignored again.",
   },
 ];
@@ -106,7 +104,7 @@ const EXTRA_NOTIFS = [
   { icon: "📱", text: "Facebook (4)", x: 78, y: 45 },
   { icon: "🔔", text: "Reminder", x: 4, y: 50 },
 ];
-const FEATURE_CHIPS = ["Multi-channel", "AI Drafts", "Voice Learning", "Business Brain", "Smart Sort"];
+const FEATURE_CHIPS = ["One inbox", "AI Drafts", "Voice Learning", "Your Prices", "Smart Sort"];
 
 // ─── Sub-components ───
 interface CardTransform { x: number; y: number; rotate: number; scale: number; opacity: number; }
@@ -156,8 +154,8 @@ const OrganisedCard = ({ card, index }: { card: (typeof ORGANISED_CARDS)[0]; ind
       </div>
       <div className="shrink-0 whitespace-nowrap" style={{
         fontSize: 9, fontWeight: 600,
-        color: card.status.includes("✓") || card.status.includes("cleared") ? "#4a7c59" : "#d59543",
-        background: card.status.includes("✓") || card.status.includes("cleared") ? "rgba(74,124,89,0.06)" : "rgba(213,149,67,0.06)",
+        color: card.status.includes("✓") || card.status.includes("junk") ? "#4a7c59" : "#d59543",
+        background: card.status.includes("✓") || card.status.includes("junk") ? "rgba(74,124,89,0.06)" : "rgba(213,149,67,0.06)",
         padding: "2px 7px", borderRadius: 5,
       }}>{card.status}</div>
     </div>
@@ -453,7 +451,7 @@ const DesktopGrowthTrap = () => {
                 <span style={{ fontSize: 16 }}>🐝</span>
                 <span style={{ fontSize: 13, fontWeight: 700, color: "#1a1a1a" }}>BizzyBee Inbox</span>
               </div>
-              <div className="rounded-md" style={{ fontSize: 10, fontWeight: 600, color: "#4a7c59", background: "rgba(74,124,89,0.07)", padding: "3px 8px" }}>All handled ✓</div>
+              <div className="rounded-md" style={{ fontSize: 10, fontWeight: 600, color: "#4a7c59", background: "rgba(74,124,89,0.07)", padding: "3px 8px" }}>Sorted, drafts ready ✓</div>
             </motion.div>
 
             {/* Feature chips */}
