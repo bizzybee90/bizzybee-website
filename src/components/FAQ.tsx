@@ -11,7 +11,7 @@ const faqs = [
   },
   {
     q: "Why do I pay before connecting my email?",
-    a: `Your customers' emails only ever come into a paid, set-up account. It also means you're using the real thing from the first minute, not a cut-down trial. If it isn't right for you, ask within ${MONEY_BACK_DAYS} days and we'll refund your first payment in full.`,
+    a: `Your customers' emails only ever come into a paid, set-up account. It also means you're using the real thing, not a cut-down trial. If it isn't right for you, ask within ${MONEY_BACK_DAYS} days and we'll refund your first payment in full.`,
   },
   {
     q: "How does the money-back promise work?",
@@ -27,7 +27,7 @@ const faqs = [
   },
   {
     q: "Will the drafts sound like me?",
-    a: "The AI Assistant learns from emails you've already sent, so drafts use your usual tone, phrases and sign-off. Any draft can be changed before it goes.",
+    a: "The AI Assistant learns your tone, phrases and sign-off from the sent emails you bring in. Early drafts may need more editing while it's still learning, and you can change any draft before it goes.",
   },
   {
     q: "How does the founder price work?",

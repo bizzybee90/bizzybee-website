@@ -44,7 +44,7 @@ const scenes: DemoScene[] = [
     icon: <Layers className="w-4 h-4" />,
     label: "Customer history",
     title: "Every customer's story in one place",
-    description: "On both plans, your past emails come in when you connect, so you can see everything a customer has said before you reply.",
+    description: "On both plans, you can bring in past emails when you connect, so you can see what a customer has said before you reply. No AI needed.",
   },
   {
     id: "brain",
@@ -145,13 +145,13 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
         <div className="space-y-2.5">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-sm font-semibold text-foreground">Sarah M.</span>
-            <span className="text-[10px] text-muted-foreground">Customer since March 2024</span>
+            <span className="text-[10px] text-muted-foreground">Customer since November 2025</span>
           </div>
           {[
             { date: "Today", text: "Re: Tap still dripping" },
             { date: "12 Aug", text: "Thanks for sorting the boiler so quickly" },
             { date: "3 Aug", text: "Boiler service booking" },
-            { date: "Mar 2024", text: "Quote for new radiator" },
+            { date: "Nov 2025", text: "Quote for new radiator" },
           ].map((m, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06, ease }} className="flex items-center justify-between p-3 rounded-xl border border-border bg-background">
               <span className="text-sm text-foreground truncate">{m.text}</span>
@@ -223,7 +223,7 @@ const InsightsPane = ({ sceneId }: { sceneId: string }) => {
     history: {
       items: [
         { icon: <Mail className="w-3 h-3 text-primary" />, label: "Emails", value: "14" },
-        { icon: <User className="w-3 h-3 text-primary" />, label: "Customer since", value: "Mar 2024" },
+        { icon: <User className="w-3 h-3 text-primary" />, label: "Customer since", value: "Nov 2025" },
         { icon: <Star className="w-3 h-3 text-primary" />, label: "Last job", value: "Boiler service" },
       ],
     },

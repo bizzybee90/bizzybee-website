@@ -126,7 +126,7 @@ const Privacy = () => (
               <ul className="list-disc pl-6 mt-2 space-y-1">
                 <li>Account details: your name, email address and business name</li>
                 <li>
-                  Emails from the mailbox you connect, including the past emails brought in when you connect it
+                  Emails from the mailbox you connect, including any past emails you choose to bring in
                 </li>
                 <li>Business details you add, such as your services, prices and the areas you cover</li>
                 <li>Billing details, handled by Stripe</li>

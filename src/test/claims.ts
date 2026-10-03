@@ -22,6 +22,13 @@ export const alwaysBanned: Rule[] = [
   { pattern: /ai phone|phone agent|voice agent|ai receptionist/i, why: "AI phone is not sold" },
   { pattern: /reads? your website|scans? your website|learns? from your website/i, why: "website reading isn't built" },
   { pattern: /most (other )?(mailboxes|email providers)|any (mailbox|email provider)/i, why: "only Gmail and Microsoft are offered" },
+  // History import is capped (provisionally 12 months or 10,000 emails per
+  // mailbox), optional, and runs in the background; its speed and cost are
+  // unmeasured, and imported attachments aren't verified (Michael, 3 Oct 21:28).
+  { pattern: /full (email |customer )?history|complete (email |customer )?history|full picture|(all|every one) of your (past|old) emails|every email you('ve| have) ever|everything (a|your) customers? (has|have) (ever )?said/i, why: "history import is capped and optional" },
+  { pattern: /takes (just )?(a|one|\d+) (minute|min)|from (day one|the first minute|minute one)|in (just |a few |\d+ )?(seconds|minutes)|instant(ly)? (import|set ?up|ready|learn)|quick ?start/i, why: "no setup or import speed claims until measured" },
+  { pattern: /(import|bring|brings|brought|keep|keeps|kept|preserve|preserves|with) (in )?(all )?(your |their |the )?attachments|attachments? (are |is )?(kept|preserved|imported|included|brought)|file ?names? (and|,) (sizes?|types?)/i, why: "imported attachments aren't verified" },
+  { pattern: /£\s?0?\.\d+ (per|a|an) (email|message|mailbox|import)|import costs?/i, why: "no import cost claims until measured" },
 ];
 
 // Channels BizzyBee doesn't support yet. Allowed only inside the marked

@@ -22,7 +22,7 @@ const steps = [
   {
     icon: <CreditCard className="w-4 h-4" />,
     title: "Choose your plan and pay",
-    text: "Secure checkout through Stripe. Takes a minute.",
+    text: "Secure checkout through Stripe.",
   },
   {
     icon: <Mail className="w-4 h-4" />,
@@ -31,8 +31,8 @@ const steps = [
   },
   {
     icon: <Inbox className="w-4 h-4" />,
-    title: "Your history comes in",
-    text: "Past conversations are brought in, so you start with the full picture.",
+    title: "Bring in your history",
+    text: "Choose how much past email to bring in, or start fresh. You can use your inbox while it comes in.",
   },
 ];
 

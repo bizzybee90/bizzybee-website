@@ -111,6 +111,27 @@ describe("the banned-claims check", () => {
     expect(findBannedClaims(block, "/src/components/FAQ.tsx")).toContain("only email works today");
   });
 
+  // The copy before Michael's 3 Oct 21:28 note on history import.
+  it.each([
+    ["One calm inbox, with each customer's full history.", "history import is capped and optional"],
+    ["Past conversations are brought in, so you start with the full picture.", "history import is capped and optional"],
+    ["See everything a customer has said before you reply.", "history import is capped and optional"],
+    ["Secure checkout through Stripe. Takes a minute.", "no setup or import speed claims until measured"],
+    ["Every customer's history is there from day one.", "no setup or import speed claims until measured"],
+    ["You're using the real thing from the first minute.", "no setup or import speed claims until measured"],
+    ["Your inbox is ready in minutes.", "no setup or import speed claims until measured"],
+    ["We bring in your attachments too.", "imported attachments aren't verified"],
+    ["Imports keep file names and sizes.", "imported attachments aren't verified"],
+    ["Import costs just £0.10 per mailbox.", "no import cost claims until measured"],
+  ])("catches %j", (text, why) => {
+    expect(findBannedClaims(text)).toContain(why);
+  });
+
+  it("still allows connecting in a few clicks and the privacy policy's list of data", () => {
+    expect(findBannedClaims("Gmail or Microsoft 365/Outlook, in a few clicks.")).toEqual([]);
+    expect(findBannedClaims("Email content, senders, recipients and attachments")).toEqual([]);
+  });
+
   it("still bans a free trial inside the before-story", () => {
     const marked = "// before-story:start\nconst t = \"free trial\";\n// before-story:end";
     expect(findBannedClaims(marked, BEFORE_STORY_FILE)).toContain("there is no free trial");

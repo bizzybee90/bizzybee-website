@@ -13,7 +13,7 @@ const steps = [
       <>
         Choose your plan and pay securely through Stripe.
         <br /><br />
-        Then connect your Gmail or Outlook mailbox in a few clicks. Your past emails come in, so every customer's history is there from day one.
+        Then connect your Gmail or Outlook mailbox in a few clicks, and choose how much past email to bring in, or start fresh. You can use your inbox while it comes in.
         <br /><br />
         <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>Not for you? Ask within {MONEY_BACK_DAYS} days for a full refund of your first payment.</span>
       </>
@@ -25,7 +25,7 @@ const steps = [
     title: "Learn your business",
     description: (
       <>
-        On the AI Assistant plan, BizzyBee reads the emails you've sent to learn how you write: your tone, your phrasing, your sign-off.
+        On the AI Assistant plan, BizzyBee reads the sent emails you bring in to learn how you write: your tone, your phrasing, your sign-off.
         <br /><br />
         You tell it your services, prices and the areas you cover, in plain English, and change them whenever you like.
         <br /><br />
@@ -41,13 +41,13 @@ const steps = [
       <>
         Now BizzyBee knows:
         <br />
-        <span className="inline-block mt-1 ml-1">• How you write</span>
-        <br />
-        <span className="inline-block ml-1">• What you charge</span>
+        <span className="inline-block mt-1 ml-1">• What you charge</span>
         <br />
         <span className="inline-block ml-1">• Where you work</span>
+        <br />
+        <span className="inline-block ml-1">• How you write (still learning at first)</span>
         <br /><br />
-        When an email comes in, it drafts a reply that sounds like you wrote it.
+        When an email comes in, it drafts a reply in your style. Early drafts may need more editing while it's still learning.
         <br /><br />
         <span style={{ fontWeight: 600, color: "hsl(220, 9%, 15%)" }}>You review. You send. You move on.</span>
       </>

@@ -41,14 +41,18 @@ export const plans: Plan[] = [
     price: 49,
     tagline: "Everything in one place",
     description:
-      "One calm inbox for your business email, with each customer's full history. No AI, just you in control.",
+      "One calm inbox for your business email, with each customer's past emails alongside. No AI, just you in control.",
     features: [
       "Connect your Gmail or Microsoft 365/Outlook mailbox",
-      "Bring in your past emails, so every customer's history is there",
+      "Choose how much past email to bring in, or start fresh",
       "Reply, assign, snooze and archive from one place",
       "No AI reads or writes anything",
     ],
-    allowances: ["1 connected mailbox", "Fair use: up to 2,000 incoming emails a month"],
+    allowances: [
+      "1 connected mailbox",
+      "Fair use: up to 2,000 incoming emails a month",
+      "Past email: up to 12 months or 10,000 emails per mailbox, not counted towards your monthly fair use",
+    ],
     popular: false,
   },
   {
@@ -62,11 +66,15 @@ export const plans: Plan[] = [
     features: [
       "Everything in BizzyBee Inbox",
       "Every email sorted: quotes, bookings, complaints, junk",
-      "Draft replies in your voice, learned from your past emails",
+      "Draft replies in your voice, learned from the sent emails you bring in",
       "Uses the prices and details you give it in quote and booking replies",
       "Nothing is sent until you approve it",
     ],
-    allowances: ["1 connected mailbox", "Fair use: up to 2,000 incoming emails and 500 AI drafts a month"],
+    allowances: [
+      "1 connected mailbox",
+      "Fair use: up to 2,000 incoming emails and 500 AI drafts a month",
+      "Past email: up to 12 months or 10,000 emails per mailbox, not counted towards your monthly fair use",
+    ],
     popular: true,
   },
 ];
