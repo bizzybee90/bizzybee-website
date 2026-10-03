@@ -384,7 +384,7 @@ const DesktopGrowthTrap = () => {
   const cardStage = isIntro ? -1 : visualStage;
 
   return (
-    <div ref={sectionRef} style={{ height: "100vh", position: "relative" }}>
+    <div ref={sectionRef} data-growth-trap-story="" style={{ height: "100vh", position: "relative" }}>
       <div className="flex overflow-hidden" style={{
         height: "100vh",
         background: bgColor,
@@ -526,7 +526,7 @@ const DesktopGrowthTrap = () => {
 
 // ─── MOBILE: Stacked cards, no scroll hijack ───
 const MobileGrowthTrap = () => (
-  <div className="py-16 px-5">
+  <div className="py-16 px-5" data-growth-trap-story="">
     <h2 className="text-2xl font-bold text-center mb-12 max-w-sm mx-auto" style={{ color: "#1a1a1a", letterSpacing: "-0.015em" }}>
       You didn't start a business to answer emails at 10pm.
     </h2>

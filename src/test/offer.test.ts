@@ -117,6 +117,25 @@ describe("the banned-claims check", () => {
   });
 });
 
+// Every source file except the tests, including the UI kit, for the marker check.
+const allSources = import.meta.glob(["/src/**/*.{ts,tsx,css}", "/index.html", "!/src/test/**"], {
+  query: "?raw",
+  import: "default",
+  eager: true,
+}) as Record<string, string>;
+
+describe("the before-story marker", () => {
+  // The rendered check skips text marked data-before-story inside the story's
+  // root (data-growth-trap-story), so both may only appear in the story file.
+  it("appears only in the story file", () => {
+    const elsewhere = Object.entries(allSources)
+      .filter(([file, text]) => file !== BEFORE_STORY_FILE && /data-before-story|data-growth-trap-story/i.test(text))
+      .map(([file]) => file);
+    expect(Object.keys(allSources)).toContain("/src/components/ui/button.tsx");
+    expect(elsewhere).toEqual([]);
+  });
+});
+
 describe("the site's copy", () => {
   for (const [file, text] of Object.entries(sources)) {
     it(`${file} makes no banned claims`, () => {
