@@ -21,7 +21,6 @@ const Footer = () => (
             <h4 className="font-mono-label mb-4" style={{ color: "hsla(40, 20%, 92%, 0.35)" }}>Contact</h4>
             <ul className="space-y-3">
               <li className="text-sm"><a href="mailto:hello@bizzybee.co.uk" className="transition-colors hover:text-primary-light" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>hello@bizzybee.co.uk</a></li>
-              <li className="text-sm" style={{ color: "hsla(40, 20%, 92%, 0.6)" }}>London, United Kingdom</li>
             </ul>
           </div>
           <div>
@@ -42,7 +41,7 @@ const Footer = () => (
 
       <div className="mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4" style={{ borderTop: "1px solid hsla(40, 20%, 92%, 0.1)" }}>
         <p className="text-sm" style={{ color: "hsla(40, 20%, 92%, 0.35)" }}>
-          © {new Date().getFullYear()} BizzyBee Ltd. Registered in England & Wales.
+          © {new Date().getFullYear()} BizzyBee
         </p>
         <p className="text-sm" style={{ color: "hsla(40, 20%, 92%, 0.35)" }}>
           Made with 🍯 in the UK

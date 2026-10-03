@@ -22,9 +22,8 @@ const Terms = () => (
               <h2 className="text-xl font-bold mb-3" style={{ color: "hsl(220, 9%, 15%)" }}>1. Agreement</h2>
               <p>
                 By accessing or using BizzyBee, you agree to be bound by these Terms of Service.
-                BizzyBee is operated by <PendingMarker>BizzyBee Ltd: confirm legal name</PendingMarker>,
-                registered in England &amp; Wales, company number <PendingMarker>to confirm</PendingMarker>,
-                registered office <PendingMarker>to confirm</PendingMarker>.
+                BizzyBee is operated by{" "}
+                <PendingMarker>Legal entity to be confirmed: name and address</PendingMarker>.
               </p>
             </section>
 

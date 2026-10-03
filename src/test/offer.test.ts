@@ -149,6 +149,13 @@ describe("the banned-claims check", () => {
     ["Just 10p per mailbox.", "no import cost claims until measured"],
     ["Less than a penny an email.", "no import cost claims until measured"],
     ["Fair use: up to 2,000 incoming emails a month", "allowances are a monthly allowance, not fair use"],
+    // Michael, 3 Oct 21:59-22:01: just "BizzyBee" for now.
+    ["© 2026 BizzyBee Ltd. Registered in England & Wales.", "the company is only \"BizzyBee\" until its legal details are confirmed"],
+    ["BizzyBee Limited", "the company is only \"BizzyBee\" until its legal details are confirmed"],
+    ["registered in England and Wales", "the company is only \"BizzyBee\" until its legal details are confirmed"],
+    ["London, United Kingdom", "the company is only \"BizzyBee\" until its legal details are confirmed"],
+    ["Our registered office is in London", "the company is only \"BizzyBee\" until its legal details are confirmed"],
+    ["UK-based", "the company is only \"BizzyBee\" until its legal details are confirmed"],
     // Michael, 3 Oct 21:56-21:57.
     ["Michael Cooper, Founder", "the founder is Michael Carbon"],
     ["We'll get back to you within 24 hours.", "replies are promised within 1 working day"],
@@ -158,8 +165,11 @@ describe("the banned-claims check", () => {
     expect(findBannedClaims(text)).toContain(why);
   });
 
-  it("still allows connecting in a few clicks and a reply within 1 working day", () => {
+  it("still allows a few clicks, a reply within 1 working day, and plain uses of limited, registration and London", () => {
     expect(findBannedClaims("Gmail or Microsoft 365/Outlook, in a few clicks.")).toEqual([]);
+    expect(findBannedClaims("Our liability is limited to the amount you paid.")).toEqual([]);
+    expect(findBannedClaims("Our ICO registration number is")).toEqual([]);
+    expect(findBannedClaims("Service area: SW London, Surrey, within 15 miles")).toEqual([]);
     expect(findBannedClaims("We'll get back to you within 1 working day.")).toEqual([]);
   });
 

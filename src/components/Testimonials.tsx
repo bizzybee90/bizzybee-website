@@ -68,7 +68,7 @@ const Testimonials = () => (
               <span style={{ color: "hsl(35, 55%, 55%)" }}>✦</span> Built for real trades businesses
             </span>
             <span className="flex items-center gap-1.5">
-              <span style={{ color: "hsl(35, 55%, 55%)" }}>✦</span> UK-based
+              <span style={{ color: "hsl(35, 55%, 55%)" }}>✦</span> For UK service businesses
             </span>
           </div>
         </AnimatedElement>

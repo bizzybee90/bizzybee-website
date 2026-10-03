@@ -94,10 +94,8 @@ const Privacy = () => (
             <section>
               <h2 className="text-xl font-bold mb-3" style={h2}>1. Who we are</h2>
               <p>
-                BizzyBee is run by <PendingMarker>BizzyBee Ltd: confirm legal name</PendingMarker>, a company
-                registered in England &amp; Wales, company number <PendingMarker>to confirm</PendingMarker>,
-                registered office <PendingMarker>to confirm</PendingMarker>. Our ICO registration number is{" "}
-                <PendingMarker>to confirm</PendingMarker>.
+                BizzyBee is run by <PendingMarker>Legal entity to be confirmed: name and address</PendingMarker>.
+                Our ICO registration number is <PendingMarker>to confirm</PendingMarker>.
               </p>
               <p className="mt-3">
                 BizzyBee gives UK service businesses one inbox for their customer email and, on the AI Assistant
