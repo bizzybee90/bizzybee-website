@@ -2,7 +2,9 @@
 // proven": no trial (pay first, with a money-back promise), email only, and
 // nothing sent or handled without the owner.
 
-type Rule = { pattern: RegExp; why: string };
+// allowedOn: the one source file, and the page it renders, where the rule
+// doesn't apply.
+type Rule = { pattern: RegExp; why: string; allowedOn?: { file: string; route: string } };
 
 // Banned everywhere, including the "before BizzyBee" story.
 export const alwaysBanned: Rule[] = [
@@ -23,13 +25,43 @@ export const alwaysBanned: Rule[] = [
   { pattern: /reads? your website|scans? your website|learns? from your website/i, why: "website reading isn't built" },
   { pattern: /most (other )?(mailboxes|email providers)|any (mailbox|email provider)/i, why: "only Gmail and Microsoft are offered" },
   // History import is capped (provisionally 12 months or 10,000 emails per
-  // mailbox), optional, and runs in the background; its speed and cost are
-  // unmeasured, and imported attachments aren't verified (Michael, 3 Oct 21:28).
-  { pattern: /full (email |customer )?history|complete (email |customer )?history|full picture|(all|every one) of your (past|old) emails|every email you('ve| have) ever|everything (a|your) customers? (has|have) (ever )?said/i, why: "history import is capped and optional" },
-  { pattern: /takes (just )?(a|one|\d+) (minute|min)|from (day one|the first minute|minute one)|in (just |a few |\d+ )?(seconds|minutes)|instant(ly)? (import|set ?up|ready|learn)|quick ?start/i, why: "no setup or import speed claims until measured" },
-  { pattern: /(import|bring|brings|brought|keep|keeps|kept|preserve|preserves|with) (in )?(all )?(your |their |the )?attachments|attachments? (are |is )?(kept|preserved|imported|included|brought)|file ?names? (and|,) (sizes?|types?)/i, why: "imported attachments aren't verified" },
-  { pattern: /£\s?0?\.\d+ (per|a|an) (email|message|mailbox|import)|import costs?/i, why: "no import cost claims until measured" },
+  // mailbox), optional, and runs in the background; its cost is unmeasured
+  // and imported attachments aren't verified (Michael, 3 Oct 21:28).
+  {
+    pattern:
+      /\b(full|complete|entire|whole|all( of)?|every)\b.{0,25}\b(history|past e?-?mails?|old e?-?mails?)\b|full picture|years of (e?-?mails?|history|messages)|every email you('ve| have) ever|everything (a|your) customers? (has|have) (ever )?said/i,
+    why: "history import is capped and optional",
+  },
+  {
+    pattern:
+      /\battachments?\b|\b(photos?|pdfs?|files|documents?|images?)\b.{0,30}\b(come|comes|coming|came) (across|with|in|over|through)\b|\b(photos?|pdfs?|files|documents?|images?)\b.{0,30}\b(imported|brought in|kept|preserved|included)\b|file ?names? (and|,) (sizes?|types?)/i,
+    why: "imported attachments aren't verified",
+    // The privacy policy lists attachments as data Nylas may handle.
+    allowedOn: { file: "/src/pages/Privacy.tsx", route: "/privacy" },
+  },
+  {
+    pattern: /import costs?|\b\d+p\b|\bpence\b|\bpenn(y|ies)\b|£\s?\d*\.\d+\s*(per|a|an|each)\b|\bcosts?\b.{0,20}£\s?\d*\.\d+/i,
+    why: "no import cost claims until measured",
+  },
+  // The numbers are enforced, so they're a monthly allowance (Michael's
+  // term), not a soft "fair use" limit.
+  { pattern: /fair[- ]use/i, why: "allowances are a monthly allowance, not fair use" },
+  // Michael, 3 Oct 21:56-21:57.
+  { pattern: /\bcooper\b/i, why: "the founder is Michael Carbon" },
+  {
+    pattern:
+      /\b(get back to (you|them)|reply|replies|respond|response|be in touch|hear (back )?from us|answer)\b.{0,30}\bwithin (a few |an? |\d+\s*[–-]?\s*\d*\s*)(business |working )?(hours?|minutes?|mins?)\b|\b(24|48)[- ]?hours?\b|\bin touch shortly\b|\busually within\b/i,
+    why: "replies are promised within 1 working day",
+  },
 ];
+
+// Setup, import and learning speed are unmeasured (Michael, 3 Oct 21:28).
+// The before-story may say "the same day" about the owner's old life.
+export const speedBanned: Rule = {
+  pattern:
+    /takes (just )?(a|one|\d+) (minute|min)|from (day one|the first minute|minute one)|in (just |a few |\d+ )?(seconds|minutes)|instant(ly)? (import|set ?up|ready|learn)|quick ?start|straight away|right away|\bimmediately\b|in no time|same[- ]day|\b(in|within) (just )?(under |less than )?(a|an|one|\d+) (minutes?|hours?|mins?|seconds?)\b/i,
+  why: "no setup or import speed claims until measured",
+};
 
 // Channels BizzyBee doesn't support yet. Allowed only inside the marked
 // "before BizzyBee" story, where they show the owner's problem.
@@ -116,13 +148,16 @@ const matches = (rule: Rule, text: string) =>
 export const findBannedClaims = (text: string, file = ""): string[] => {
   const outsideStory = file === BEFORE_STORY_FILE ? withoutBeforeStory(text) : text;
   return [
-    ...alwaysBanned.filter((r) => matches(r, text)),
-    ...channelBanned.filter((r) => matches(r, outsideStory)),
+    ...alwaysBanned.filter((r) => r.allowedOn?.file !== file && matches(r, text)),
+    ...[...channelBanned, speedBanned].filter((r) => matches(r, outsideStory)),
   ].map((r) => r.why);
 };
 
-// For text taken from rendered pages: what visitors actually read.
-export const findBannedInRendered = (text: string): string[] => {
+// For text taken from rendered pages: what visitors actually read. The
+// before-story is already left out, so every rule applies.
+export const findBannedInRendered = (text: string, route = ""): string[] => {
   const folded = foldText(text);
-  return [...alwaysBanned, ...renderedChannelBanned].filter((r) => r.pattern.test(folded)).map((r) => r.why);
+  return [...alwaysBanned, ...renderedChannelBanned, speedBanned]
+    .filter((r) => r.allowedOn?.route !== route && r.pattern.test(folded))
+    .map((r) => r.why);
 };

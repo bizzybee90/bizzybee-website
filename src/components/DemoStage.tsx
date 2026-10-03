@@ -108,7 +108,7 @@ const ReadingPane = ({ sceneId }: { sceneId: string }) => {
             <motion.div key={voiceMode} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3, ease }}>
               {voiceMode === "generic" ? (
                 <div className="p-4 rounded-xl border border-border bg-background-alt">
-                  <p className="text-sm text-foreground/70 leading-relaxed">"Dear Customer, Thank you for your enquiry. We will respond within 24–48 business hours. Kind regards, [Business Name]."</p>
+                  <p className="text-sm text-foreground/70 leading-relaxed">"Dear Customer, Thank you for your enquiry. We will get back to you as soon as possible. Kind regards, [Business Name]."</p>
                 </div>
               ) : (
                 <div className="p-4 rounded-xl border border-primary/20 bg-primary-glow/10">

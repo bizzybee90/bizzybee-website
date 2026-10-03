@@ -44,7 +44,7 @@ const Testimonials = () => (
             </div>
             <div className="text-left">
               <span className="block text-sm font-semibold" style={{ color: "hsl(220, 9%, 20%)" }}>
-                Michael Cooper
+                Michael Carbon
               </span>
               <span
                 className="block uppercase"

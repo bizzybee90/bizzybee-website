@@ -29,6 +29,14 @@ describe("the offer", () => {
     expect(text).not.toMatch(/draft|sort|learn|classif/);
   });
 
+  it("states the history maximum as whichever comes first, outside the monthly allowance", () => {
+    for (const plan of plans) {
+      expect(plan.allowances).toContain(
+        "Past email: up to 12 months or 10,000 emails per mailbox, whichever comes first, not counted towards your monthly allowance",
+      );
+    }
+  });
+
   it("sends each plan button to sign-up with its plan", () => {
     expect(signupUrl("inbox")).toBe("https://app.bizzybee.co.uk/auth?mode=signup&plan=inbox");
     expect(signupUrl("ai_assistant")).toBe("https://app.bizzybee.co.uk/auth?mode=signup&plan=ai_assistant");
@@ -123,13 +131,53 @@ describe("the banned-claims check", () => {
     ["We bring in your attachments too.", "imported attachments aren't verified"],
     ["Imports keep file names and sizes.", "imported attachments aren't verified"],
     ["Import costs just £0.10 per mailbox.", "no import cost claims until measured"],
+    // The re-review's rephrases that got past the first version of these rules.
+    ["Bring in all your past emails.", "history import is capped and optional"],
+    ["Your entire email history", "history import is capped and optional"],
+    ["Every past email, ready to search.", "history import is capped and optional"],
+    ["Years of email history.", "history import is capped and optional"],
+    ["Your whole inbox history comes across.", "history import is capped and optional"],
+    ["Ready in no time.", "no setup or import speed claims until measured"],
+    ["Up and running straight away.", "no setup or import speed claims until measured"],
+    ["Import finishes in under a minute.", "no setup or import speed claims until measured"],
+    ["Use it immediately.", "no setup or import speed claims until measured"],
+    ["Ready the same day.", "no setup or import speed claims until measured"],
+    ["Including attachments.", "imported attachments aren't verified"],
+    ["Attachments come with them.", "imported attachments aren't verified"],
+    ["Photos and PDFs come across too.", "imported attachments aren't verified"],
+    ["Importing costs pennies.", "no import cost claims until measured"],
+    ["Just 10p per mailbox.", "no import cost claims until measured"],
+    ["Less than a penny an email.", "no import cost claims until measured"],
+    ["Fair use: up to 2,000 incoming emails a month", "allowances are a monthly allowance, not fair use"],
+    // Michael, 3 Oct 21:56-21:57.
+    ["Michael Cooper, Founder", "the founder is Michael Carbon"],
+    ["We'll get back to you within 24 hours.", "replies are promised within 1 working day"],
+    ["We'll be in touch shortly. Usually within a few hours.", "replies are promised within 1 working day"],
+    ["We reply within 2 hours.", "replies are promised within 1 working day"],
   ])("catches %j", (text, why) => {
     expect(findBannedClaims(text)).toContain(why);
   });
 
-  it("still allows connecting in a few clicks and the privacy policy's list of data", () => {
+  it("still allows connecting in a few clicks and a reply within 1 working day", () => {
     expect(findBannedClaims("Gmail or Microsoft 365/Outlook, in a few clicks.")).toEqual([]);
-    expect(findBannedClaims("Email content, senders, recipients and attachments")).toEqual([]);
+    expect(findBannedClaims("We'll get back to you within 1 working day.")).toEqual([]);
+  });
+
+  it("allows attachments only in the privacy policy's list of data", () => {
+    const line = "Email content, senders, recipients and attachments";
+    expect(findBannedClaims(line, "/src/pages/Privacy.tsx")).toEqual([]);
+    expect(findBannedClaims(line, "/src/components/FAQ.tsx")).toContain("imported attachments aren't verified");
+  });
+
+  it("allows the owner's old same-day quotes only inside the before-story", () => {
+    const line = 'const line = "You gave quotes the same day."; // before-story';
+    expect(findBannedClaims(line, BEFORE_STORY_FILE)).toEqual([]);
+    expect(findBannedClaims(line, "/src/components/Hero.tsx")).toContain("no setup or import speed claims until measured");
+  });
+
+  it("signs the founder's quote Michael Carbon and promises replies within 1 working day", () => {
+    expect(sources["/src/components/Testimonials.tsx"]).toContain("Michael Carbon");
+    expect(sources["/src/pages/Contact.tsx"].match(/within 1 working day/g)).toHaveLength(2);
   });
 
   it("still bans a free trial inside the before-story", () => {

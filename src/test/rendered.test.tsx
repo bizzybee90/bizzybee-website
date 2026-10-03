@@ -170,7 +170,7 @@ describe("what visitors read", () => {
         const { text, problems } = await visit(path, width);
         expect(text.length).toBeGreaterThan(200);
         expect(problems).toEqual([]);
-        expect(findBannedInRendered(text)).toEqual([]);
+        expect(findBannedInRendered(text, path)).toEqual([]);
       });
     }
   }

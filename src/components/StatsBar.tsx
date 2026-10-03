@@ -3,7 +3,7 @@ import { useRef } from "react";
 import { MONEY_BACK_DAYS } from "@/lib/offer";
 
 const capabilities = [
-  { icon: "📥", label: "Inbox", value: "One", detail: "Every customer email and its history in one place" },
+  { icon: "📥", label: "Inbox", value: "One", detail: "Your customer emails and their history in one place" },
   { icon: "✋", label: "Sent without your OK", value: "Never", detail: "Every AI draft waits for you to approve it" },
   { icon: "🛡️", label: "Money-back promise", value: `${MONEY_BACK_DAYS} days`, detail: "Full refund of your first payment if it isn't for you" },
   { icon: "🔒", label: "Payments", value: "Stripe", detail: "Secure checkout. We never see your card details" },

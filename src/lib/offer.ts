@@ -50,8 +50,8 @@ export const plans: Plan[] = [
     ],
     allowances: [
       "1 connected mailbox",
-      "Fair use: up to 2,000 incoming emails a month",
-      "Past email: up to 12 months or 10,000 emails per mailbox, not counted towards your monthly fair use",
+      "Monthly allowance: up to 2,000 incoming emails",
+      "Past email: up to 12 months or 10,000 emails per mailbox, whichever comes first, not counted towards your monthly allowance",
     ],
     popular: false,
   },
@@ -72,8 +72,8 @@ export const plans: Plan[] = [
     ],
     allowances: [
       "1 connected mailbox",
-      "Fair use: up to 2,000 incoming emails and 500 AI drafts a month",
-      "Past email: up to 12 months or 10,000 emails per mailbox, not counted towards your monthly fair use",
+      "Monthly allowance: up to 2,000 incoming emails and 500 AI drafts",
+      "Past email: up to 12 months or 10,000 emails per mailbox, whichever comes first, not counted towards your monthly allowance",
     ],
     popular: true,
   },
