@@ -154,6 +154,11 @@ const visit = async (path: string, width: number) => {
   });
   await tick();
   read();
+
+  // Anything still waiting on a timer: the longest content delay on the site
+  // today is 2.8 s, so a minute of page time covers it with room to spare.
+  await wait(60_000);
+  read();
   Object.defineProperty(window, "scrollY", { value: 0, configurable: true });
   return { text: seen.join("\n"), problems: [...problems] };
 };

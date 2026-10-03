@@ -31,16 +31,16 @@ const processors: { name: string; purpose: string; data: string; where: React.Re
     where: <PendingMarker>Confirm whether used at launch, and where</PendingMarker>,
   },
   {
-    name: "OpenAI",
-    purpose: "AI Assistant plan only: sorts emails, drafts replies and learns your writing style",
+    name: "xAI",
+    purpose: "AI Assistant plan only: drafts replies",
     data: "Email content and the business details you add",
-    where: "USA",
+    where: <PendingMarker>Region to confirm. Confirm the hosted AI_DRAFT_PROVIDER setting</PendingMarker>,
   },
   {
-    name: "xAI",
-    purpose: "Alternative AI provider",
+    name: "OpenAI",
+    purpose: "AI Assistant plan only: sorts emails and learns your writing style. Backup for drafting replies",
     data: "Email content and the business details you add",
-    where: <PendingMarker>Remove if not enabled at launch</PendingMarker>,
+    where: "USA",
   },
   {
     name: "Google (Places)",
